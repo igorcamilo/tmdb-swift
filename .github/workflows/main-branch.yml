@@ -9,7 +9,7 @@ on:
 jobs:
   analyze:
     concurrency:
-      group: main-branch (${{ github.ref }}) (${{ matrix.name }})
+      group: MainBranch-${{ matrix.name }}-${{ github.ref }}
       cancel-in-progress: true
     name: Analyze code (${{ matrix.name }})
     runs-on: macos-15
@@ -25,8 +25,6 @@ jobs:
           name: macOS
         - destination: platform=tvOS Simulator,OS=18.5,name=Apple TV 4K (3rd generation)
           name: tvOS
-        - destination: platform=visionOS Simulator,OS=2.5,name=Apple Vision Pro
-          name: visionOS
         - destination: platform=watchOS Simulator,OS=11.5,name=Apple Watch Series 10 (42mm)
           name: watchOS
     steps:
@@ -41,8 +39,13 @@ jobs:
       run: sudo xcode-select -s /Applications/Xcode_16.4.app
     - name: Build and run tests
       shell: bash
-      run: xcrun xcodebuild -scheme TMDB -destination "${{ matrix.destination }}" CODE_SIGNING_ALLOWED="NO" clean test
+      run: xcrun xcodebuild clean test -scheme TMDB  -resultBundlePath TestResults -destination "${{ matrix.destination }}" CODE_SIGNING_ALLOWED="NO"
     - name: Perform CodeQL analysis
       uses: github/codeql-action/analyze@v3
       with:
         category: "/language:swift"
+    - name: Upload xcresult bundle
+      uses: actions/upload-artifact@v4
+      with:
+        name: TestResults-${{ matrix.name }}
+        path: TestResults.xcresult
