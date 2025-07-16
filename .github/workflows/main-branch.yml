@@ -8,31 +8,10 @@ on:
 
 jobs:
   analyze:
-    concurrency:
-      group: MainBranch-${{ matrix.name }}-${{ github.ref }}
-      cancel-in-progress: true
-    name: Analyze code (${{ matrix.name }})
+    name: Analyze
     runs-on: macos-15
     permissions:
       security-events: write
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-        - destination: name=Workflow
-          name: iOS
-          sim-device-type: iPhone-16
-          sim-runtime: iOS-18-5
-        - destination: platform=macOS
-          name: macOS
-        - destination: name=Workflow
-          name: tvOS
-          sim-device-type: Apple-TV-4K-3rd-generation
-          sim-runtime: tvOS-18-5
-        - destination: name=Workflow
-          name: watchOS
-          sim-device-type: Apple-Watch-Series-10-42mm
-          sim-runtime: watchOS-11-5
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -43,15 +22,33 @@ jobs:
         build-mode: manual
     - name: Select Xcode version
       run: sudo xcode-select -s /Applications/Xcode_16.4.app
-    - name: Create and boot simulator (if needed)
-      if: ${{ matrix.sim-device-type != null && matrix.sim-runtime != null }}
-      run: xcrun simctl create Workflow com.apple.CoreSimulator.SimDeviceType.${{ matrix.sim-device-type }} com.apple.CoreSimulator.SimRuntime.${{ matrix.sim-runtime }} && xcrun simctl boot Workflow
     - name: Build and run tests
-      run: xcrun xcodebuild clean test -scheme TMDB  -resultBundlePath TestResults -destination "${{ matrix.destination }}" CODE_SIGNING_ALLOWED="NO"
+      run: xcrun xcodebuild build -scheme TMDB -destination "platform=macOS" CODE_SIGNING_ALLOWED="NO"
     - name: Perform CodeQL analysis
       uses: github/codeql-action/analyze@v3
       with:
         category: "/language:swift"
+  unit-test:
+    name: Unit tests (${{ matrix.name }})
+    runs-on: macos-15
+    strategy:
+      matrix:
+        include:
+        - destination: platform=iOS Simulator,OS=18.5,name=iPhone 16
+          name: iOS
+        - destination: platform=macOS
+          name: macOS
+        - destination: platform=tvOS Simulator,OS=18.5,name=Apple TV 4K (3rd generation)
+          name: tvOS
+        - destination: platform=watchOS Simulator,OS=11.5,name=Apple Watch Series 10 (42mm)
+          name: watchOS
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Select Xcode version
+      run: sudo xcode-select -s /Applications/Xcode_16.4.app
+    - name: Build and run tests
+      run: xcrun xcodebuild test -scheme TMDB  -resultBundlePath TestResults -destination "${{ matrix.destination }}" CODE_SIGNING_ALLOWED="NO"
     - name: Upload xcresult bundle
       uses: actions/upload-artifact@v4
       with:
