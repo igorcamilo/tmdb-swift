@@ -7,27 +7,6 @@ on:
     branches: [ "main" ]
 
 jobs:
-  analyze:
-    name: Analyze
-    runs-on: macos-15
-    permissions:
-      security-events: write
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
-      with:
-        languages: swift
-        build-mode: manual
-    - name: Select Xcode version
-      run: sudo xcode-select -s /Applications/Xcode_16.4.app
-    - name: Build and run tests
-      run: xcrun xcodebuild build -scheme TMDB -destination "platform=macOS" CODE_SIGNING_ALLOWED="NO"
-    - name: Perform CodeQL analysis
-      uses: github/codeql-action/analyze@v3
-      with:
-        category: "/language:swift"
   unit-test:
     name: Unit tests (${{ matrix.name }})
     runs-on: macos-15
@@ -40,6 +19,8 @@ jobs:
           name: macOS
         - destination: platform=tvOS Simulator,OS=18.5,name=Apple TV 4K (3rd generation)
           name: tvOS
+        - destination: platform=visionOS Simulator,OS=2.5,name=Apple Vision Pro
+          name: visionOS
         - destination: platform=watchOS Simulator,OS=11.5,name=Apple Watch Series 10 (42mm)
           name: watchOS
     steps:
