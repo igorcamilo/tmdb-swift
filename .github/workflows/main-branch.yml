@@ -29,9 +29,9 @@ jobs:
     - name: Select Xcode version
       run: sudo xcode-select -s /Applications/Xcode_16.4.app
     - name: Build and run tests
-      run: xcrun xcodebuild test -scheme TMDB  -resultBundlePath Artifacts/TestResults -destination "${{ matrix.destination }}"
+      run: xcrun xcodebuild test -scheme TMDB  -resultBundlePath TestResults.xcresult -destination "${{ matrix.destination }}"
     - name: Upload xcresult bundle
       uses: actions/upload-artifact@v4
       with:
-        name: Artifacts-${{ matrix.name }}
-        path: Artifacts
+        name: TestResults-${{ matrix.name }}
+        path: TestResults.xcresult
