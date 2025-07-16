@@ -37,7 +37,7 @@ public final class Client: Sendable {
         }
         var urlRequest = URLRequest(url: baseURL)
         urlRequest.allHTTPHeaderFields = [
-          "accept": "application/json",
+          "Accept": "application/json",
           "Authorization": "Bearer \(accessToken)"
         ]
         return urlRequest

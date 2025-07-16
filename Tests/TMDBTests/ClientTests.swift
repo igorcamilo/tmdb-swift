@@ -27,7 +27,7 @@ struct ClientTests {
             return responseData
         }
         _ = try await client.configuration()
-        // Vefify
+        // Verify
         let urlRquest = try #require(await urlRequestStorage.value)
         #expect(urlRquest.url?.absoluteString == "https://api.themoviedb.org/3/configuration")
         #expect(urlRquest.httpMethod == "GET")
