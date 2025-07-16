@@ -1,3 +1,17 @@
+//
+//  Data+Configuration.swift
+//  TMDB
+//
+//  Created by Igor Camilo on 16.07.25.
+//
+
+import Foundation
+
+extension Data {
+    static let configuration = Data(contents.utf8)
+}
+
+private let contents = """
 {
   "change_keys": [
     "adult",
@@ -95,3 +109,4 @@
     ]
   }
 }
+"""

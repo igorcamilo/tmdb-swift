@@ -22,8 +22,7 @@ let package = Package(
         ),
         .testTarget(
             name: "TMDBTests",
-            dependencies: ["TMDB"],
-            resources: [.process("MockData")]
+            dependencies: ["TMDB"]
         ),
     ]
 )

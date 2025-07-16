@@ -12,7 +12,7 @@ jobs:
       group: main-branch (${{ github.ref }}) (${{ matrix.name }})
       cancel-in-progress: true
     name: Analyze code (${{ matrix.name }})
-    runs-on: ${{ matrix.runs-on }}
+    runs-on: macos-15
     permissions:
       security-events: write
     strategy:
@@ -20,25 +20,15 @@ jobs:
       matrix:
         include:
         - destination: platform=iOS Simulator,OS=18.5,name=iPhone 16
-          name: iOS 18
-          runs-on: macos-15
-          xcode-version: Xcode_16.4
+          name: iOS
         - destination: platform=macOS
-          name: macOS 15
-          runs-on: macos-15
-          xcode-version: Xcode_16.4
+          name: macOS
         - destination: platform=tvOS Simulator,OS=18.5,name=Apple TV 4K (3rd generation)
-          name: tvOS 18
-          runs-on: macos-15
-          xcode-version: Xcode_16.4
+          name: tvOS
         - destination: platform=visionOS Simulator,OS=2.5,name=Apple Vision Pro
-          name: visionOS 2
-          runs-on: macos-15
-          xcode-version: Xcode_16.4
+          name: visionOS
         - destination: platform=watchOS Simulator,OS=11.5,name=Apple Watch Series 10 (42mm)
-          name: watchOS 11
-          runs-on: macos-15
-          xcode-version: Xcode_16.4
+          name: watchOS
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -48,7 +38,7 @@ jobs:
         languages: swift
         build-mode: manual
     - name: Select Xcode version
-      run: sudo xcode-select -s /Applications/${{ matrix.xcode-version }}.app
+      run: sudo xcode-select -s /Applications/Xcode_16.4.app
     - name: Build and run tests
       shell: bash
       run: xcrun xcodebuild -scheme TMDB -destination "${{ matrix.destination }}" CODE_SIGNING_ALLOWED="NO" clean test

@@ -14,17 +14,10 @@ struct ClientTests {
     func configuration() async throws {
         // Setup
         let urlRequestStorage = TestStorage<URLRequest>()
-        let responseURL = try #require(
-            Bundle.module.url(
-                forResource: "configuration",
-                withExtension: "json"
-            )
-        )
-        let responseData = try Data(contentsOf: responseURL)
         // Test
         let client = Client(accessToken: "ABC123") {
             await urlRequestStorage.setValue($0)
-            return responseData
+            return .configuration
         }
         _ = try await client.configuration()
         // Verify
