@@ -1,0 +1,58 @@
+name: "Main branch"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  analyze:
+    concurrency:
+      group: main-branch (${{ github.ref }}) (${{ matrix.name }})
+      cancel-in-progress: true
+    name: Analyze code (${{ matrix.name }})
+    runs-on: ${{ matrix.runs-on }}
+    permissions:
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - destination: platform=iOS Simulator,OS=18.5,name=iPhone 16
+          name: iOS 18
+          runs-on: macos-15
+          xcode-version: Xcode_16.4
+        - destination: platform=macOS
+          name: macOS 15
+          runs-on: macos-15
+          xcode-version: Xcode_16.4
+        - destination: platform=tvOS Simulator,OS=18.5,name=Apple TV 4K (3rd generation)
+          name: tvOS 18
+          runs-on: macos-15
+          xcode-version: Xcode_16.4
+        - destination: platform=visionOS Simulator,OS=2.5,name=Apple Vision Pro
+          name: visionOS 2
+          runs-on: macos-15
+          xcode-version: Xcode_16.4
+        - destination: platform=watchOS Simulator,OS=11.5,name=Apple Watch Series 10 (42mm)
+          name: watchOS 11
+          runs-on: macos-15
+          xcode-version: Xcode_16.4
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: swift
+        build-mode: manual
+    - name: Select Xcode version
+      run: sudo xcode-select -s /Applications/${{ matrix.xcode-version }}.app
+    - name: Build and run tests
+      shell: bash
+      run: xcrun xcodebuild -scheme TMDB -destination "${{ matrix.destination }}" CODE_SIGNING_ALLOWED="NO" clean test
+    - name: Perform CodeQL analysis
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:swift"
