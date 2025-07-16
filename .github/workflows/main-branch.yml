@@ -33,5 +33,5 @@ jobs:
     - name: Upload xcresult bundle
       uses: actions/upload-artifact@v4
       with:
-        name: TestResults-${{ matrix.name }}
+        name: TestResults-${{ matrix.name }}.xcresult
         path: TestResults.xcresult
