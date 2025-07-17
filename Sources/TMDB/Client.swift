@@ -9,25 +9,29 @@ import Foundation
 
 public final class Client: Sendable {
     public let accessToken: String
-    public let getData: GetData
+    public let performRequest: PerformRequest
 
     private let decoder = JSONDecoder()
 
     public init(
         accessToken: String,
-        getData: GetData? = nil
+        performRequest: PerformRequest? = nil
     ) {
         self.accessToken = accessToken
-        self.getData = getData ?? {
-            try await URLSession.shared.data(for: $0).0
+        self.performRequest = performRequest ?? {
+            try await Response(URLSession.shared.data(for: $0))
         }
     }
 
     public func configuration() async throws -> Configuration {
         var urlRequest = try urlRequest()
         urlRequest.url?.appendPathComponent("configuration")
-        let data = try await getData(urlRequest)
-        return try decoder.decode(Configuration.self, from: data)
+        let response = try await performRequest(urlRequest)
+        if response.statusCode == 200 {
+            return try decoder.decode(Configuration.self, from: response.data)
+        } else {
+            throw try decoder.decode(ErrorContent.self, from: response.data)
+        }
     }
 
     private func urlRequest() throws -> URLRequest {
@@ -43,7 +47,7 @@ public final class Client: Sendable {
         return urlRequest
     }
 
-    public typealias GetData = @Sendable (URLRequest) async throws -> Data
+    public typealias PerformRequest = @Sendable (URLRequest) async throws -> Response
 }
 
 public enum ClientError: Error {
