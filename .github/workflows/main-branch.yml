@@ -9,27 +9,57 @@ on:
 jobs:
   unit-test:
     name: Unit tests (${{ matrix.name }})
-    runs-on: macos-15
+    runs-on: ${{ matrix.runs-on }}
     strategy:
       matrix:
         include:
-        - destination: platform=iOS Simulator,OS=18.5,name=iPhone 16
-          name: iOS
-        - destination: platform=macOS
-          name: macOS
-        - destination: platform=tvOS Simulator,OS=18.5,name=Apple TV 4K (3rd generation)
-          name: tvOS
-        - destination: platform=visionOS Simulator,OS=2.5,name=Apple Vision Pro
-          name: visionOS
-        - destination: platform=watchOS Simulator,OS=11.5,name=Apple Watch Series 10 (42mm)
-          name: watchOS
+        - name: iOS 18
+          runs-on: macos-15
+          xcode-version: Xcode_16.4
+          destination: platform=iOS Simulator,OS=18.5,name=iPhone 16
+        - name: macOS 15
+          runs-on: macos-15
+          xcode-version: Xcode_16.4
+          destination: platform=macOS
+        - name: tvOS 18
+          runs-on: macos-15
+          xcode-version: Xcode_16.4
+          destination: platform=tvOS Simulator,OS=18.5,name=Apple TV 4K (3rd generation)
+        - name: visionOS 2
+          runs-on: macos-15
+          xcode-version: Xcode_16.4
+          destination: platform=visionOS Simulator,OS=2.5,name=Apple Vision Pro
+        - name: watchOS 11
+          runs-on: macos-15
+          xcode-version: Xcode_16.4
+          destination: platform=watchOS Simulator,OS=11.5,name=Apple Watch Series 10 (42mm)
+        - name: iOS 17
+          runs-on: macos-14
+          xcode-version: Xcode_15.4
+          destination: platform=iOS Simulator,OS=17.5,name=iPhone 15
+        - name: macOS 14
+          runs-on: macos-14
+          xcode-version: Xcode_15.4
+          destination: platform=macOS
+        - name: tvOS 17
+          runs-on: macos-14
+          xcode-version: Xcode_15.4
+          destination: platform=tvOS Simulator,OS=17.5,name=Apple TV 4K (3rd generation)
+        - name: visionOS 1
+          runs-on: macos-14
+          xcode-version: Xcode_15.4
+          destination: platform=visionOS Simulator,OS=1.2,name=Apple Vision Pro
+        - name: watchOS 10
+          runs-on: macos-14
+          xcode-version: Xcode_15.4
+          destination: platform=watchOS Simulator,OS=10.5,name=Apple Watch Series 9 (41mm)
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
     - name: Select Xcode version
-      run: sudo xcode-select -s /Applications/Xcode_16.4.app
+      run: sudo xcode-select -s /Applications/${{ matrix.xcode-version }}.app
     - name: Build and run tests
-      run: xcrun xcodebuild test -scheme TMDB -resultBundlePath Artifacts/TestResults.xcresult -destination "${{ matrix.destination }}"
+      run: xcrun xcodebuild test -scheme TMDB -resultBundlePath Artifacts/TestResults.xcresult -destination "${{ matrix.destination }}" CODE_SIGNING_ALLOWED="NO"
     - name: Upload xcresult bundle
       uses: actions/upload-artifact@v4
       with:
