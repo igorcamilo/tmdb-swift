@@ -13,15 +13,15 @@ jobs:
     strategy:
       matrix:
         include:
-        - name: iOS 18
+        - name: iOS
           destination: platform=iOS Simulator,OS=18.5,name=iPhone 16
-        - name: macOS 15
+        - name: macOS
           destination: platform=macOS
-        - name: tvOS 18
+        - name: tvOS
           destination: platform=tvOS Simulator,OS=18.5,name=Apple TV 4K (3rd generation)
-        - name: visionOS 2
+        - name: visionOS
           destination: platform=visionOS Simulator,OS=2.5,name=Apple Vision Pro
-        - name: watchOS 11
+        - name: watchOS
           destination: platform=watchOS Simulator,OS=11.5,name=Apple Watch Series 10 (42mm)
     steps:
     - name: Checkout repository
