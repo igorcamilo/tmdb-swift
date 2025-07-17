@@ -5,7 +5,7 @@
 //  Created by Igor Camilo on 16.07.25.
 //
 
-#if canImport(Testing)
+#if swift(>=6.0)
 
 import Foundation
 import Testing
