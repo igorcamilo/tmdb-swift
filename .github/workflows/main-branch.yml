@@ -92,7 +92,7 @@ jobs:
     - name: Select Xcode version
       run: sudo xcode-select -s /Applications/${{ matrix.xcode-version }}.app
     - name: Build and run tests
-      run: xcrun xcodebuild ${{ matrix.command }} -scheme TMDB -resultBundlePath Artifacts/TestResults.xcresult -destination "${{ matrix.destination }}" CODE_SIGNING_ALLOWED="NO" SWIFT_TREAT_WARNINGS_AS_ERRORS=YES
+      run: xcrun xcodebuild test -scheme TMDB -resultBundlePath Artifacts/TestResults.xcresult -destination "${{ matrix.destination }}" CODE_SIGNING_ALLOWED=NO SWIFT_TREAT_WARNINGS_AS_ERRORS=YES
     - name: Upload xcresult bundle
       uses: actions/upload-artifact@v4
       with:

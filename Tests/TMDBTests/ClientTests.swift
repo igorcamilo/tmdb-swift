@@ -5,6 +5,8 @@
 //  Created by Igor Camilo on 16.07.25.
 //
 
+#if canImport(Testing)
+
 import Foundation
 import Testing
 import TMDB
@@ -86,3 +88,5 @@ struct ClientTests {
         )
     }
 }
+
+#endif
