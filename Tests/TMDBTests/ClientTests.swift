@@ -5,9 +5,10 @@
 //  Created by Igor Camilo on 16.07.25.
 //
 
-#if swift(>=6.0)
-
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 import Testing
 import TMDB
 
@@ -88,5 +89,3 @@ struct ClientTests {
         )
     }
 }
-
-#endif

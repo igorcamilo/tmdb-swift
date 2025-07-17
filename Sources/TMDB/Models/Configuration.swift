@@ -5,7 +5,11 @@
 //  Created by Igor Camilo on 16.07.25.
 //
 
+#if swift(>=6.0)
 import Foundation
+#else
+@preconcurrency import Foundation
+#endif
 
 public struct Configuration: Codable, Hashable, Sendable {
     public var changeKeys: [String]

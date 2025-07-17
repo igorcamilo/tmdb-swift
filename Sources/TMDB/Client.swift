@@ -5,7 +5,14 @@
 //  Created by Igor Camilo on 16.07.25.
 //
 
+#if swift(>=6.0)
 import Foundation
+#else
+@preconcurrency import Foundation
+#endif
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 public final class Client: Sendable {
     public let accessToken: String
