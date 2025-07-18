@@ -14,15 +14,15 @@ jobs:
       matrix:
         include:
         - name: iOS
-          destination: platform=iOS Simulator,OS=18.5,name=iPhone 16
+          destination: platform=iOS Simulator,arch=arm64,OS=18.5,name=iPhone 16
         - name: macOS
-          destination: platform=macOS
+          destination: platform=macOS,arch=arm64
         - name: tvOS
-          destination: platform=tvOS Simulator,OS=18.5,name=Apple TV 4K (3rd generation)
+          destination: platform=tvOS Simulator,arch=arm64,OS=18.5,name=Apple TV 4K (3rd generation)
         - name: visionOS
-          destination: platform=visionOS Simulator,OS=2.5,name=Apple Vision Pro
+          destination: platform=visionOS Simulator,arch=arm64,OS=2.5,name=Apple Vision Pro
         - name: watchOS
-          destination: platform=watchOS Simulator,OS=11.5,name=Apple Watch Series 10 (42mm)
+          destination: platform=watchOS Simulator,arch=arm64,OS=11.5,name=Apple Watch Series 10 (42mm)
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -45,9 +45,7 @@ jobs:
       run: |
         curl -O https://download.swift.org/swiftly/darwin/swiftly.pkg
         installer -pkg swiftly.pkg -target CurrentUserHomeDirectory
-        ~/.swiftly/bin/swiftly init --quiet-shell-followup --skip-install --no-modify-profile
-        ~/.swiftly/bin/swiftly install 6.1
-        ~/.swiftly/bin/swiftly use 6.1
+        ~/.swiftly/bin/swiftly init --quiet-shell-followup
         swift --version
     - name: Build and run tests
       run: swift test -Xswiftc -warnings-as-errors
@@ -59,11 +57,10 @@ jobs:
       uses: actions/checkout@v4
     - name: Install Swift
       run: |
+        sudo apt-get -y install libcurl4-openssl-dev
         curl -O https://download.swift.org/swiftly/linux/swiftly-$(uname -m).tar.gz
         tar zxf swiftly-$(uname -m).tar.gz
-        ./swiftly init --quiet-shell-followup --skip-install --no-modify-profile
-        ~/.local/share/swiftly/bin/swiftly install 6.1
-        ~/.local/share/swiftly/bin/swiftly use 6.1
+        ./swiftly init --quiet-shell-followup
         swift --version
     - name: Build and run tests
       run: swift test -Xswiftc -warnings-as-errors
@@ -76,6 +73,9 @@ jobs:
     - name: Install Swift
       run: |
         winget install --id Swift.Toolchain -e --accept-package-agreements --accept-source-agreements
+        winget --info
+        winget list Swift.Toolchain
+        Get-Command swift
         swift --version
     - name: Build and run tests
       run: swift test -Xswiftc -warnings-as-errors
