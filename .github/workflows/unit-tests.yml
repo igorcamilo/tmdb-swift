@@ -1,0 +1,55 @@
+name: "Unit tests"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  xcode-tests:
+    name: Xcode tests (${{ matrix.name }})
+    runs-on: macos-15
+    strategy:
+      matrix:
+        include:
+        - name: iOS
+          destination: platform=iOS Simulator,OS=18.5,name=iPhone 16
+        - name: macOS
+          destination: platform=macOS
+        - name: tvOS
+          destination: platform=tvOS Simulator,OS=18.5,name=Apple TV 4K (3rd generation)
+        - name: visionOS
+          destination: platform=visionOS Simulator,OS=2.5,name=Apple Vision Pro
+        - name: watchOS
+          destination: platform=watchOS Simulator,OS=11.5,name=Apple Watch Series 10 (42mm)
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Select Xcode version
+      run: sudo xcode-select -s /Applications/Xcode_16.4.app
+    - name: Build and run tests
+      run: xcrun xcodebuild test -scheme TMDB -resultBundlePath "Artifacts/TestResults (${{ matrix.name }}).xcresult" -destination "${{ matrix.destination }}" CODE_SIGNING_ALLOWED=NO SWIFT_TREAT_WARNINGS_AS_ERRORS=YES
+    - name: Upload Xcode result bundle
+      uses: actions/upload-artifact@v4
+      with:
+        name: TestResults (${{ matrix.name }})
+        path: Artifacts
+  swift-tests-macos:
+    name: Swift tests (macOS)
+    runs-on: macos-15
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Select Xcode version
+      run: sudo xcode-select -s /Applications/Xcode_16.4.app
+    - name: Build and run tests
+      run: xcrun swift test -Xswiftc -warnings-as-errors
+  swift-tests-ubuntu:
+    name: Swift tests (Ubuntu)
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Build and run tests
+      run: swift test -Xswiftc -warnings-as-errors
