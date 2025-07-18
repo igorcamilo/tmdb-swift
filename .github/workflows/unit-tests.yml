@@ -1,11 +1,11 @@
 name: "Unit tests"
-
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
+permissions:
+  contents: read
 jobs:
   xcode-tests:
     name: Xcode tests (${{ matrix.name }})
@@ -41,15 +41,49 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-    - name: Select Xcode version
-      run: sudo xcode-select -s /Applications/Xcode_16.4.app
+    - name: Install Swiftly
+      run: |
+        curl -O https://download.swift.org/swiftly/darwin/swiftly.pkg && \
+        installer -pkg swiftly.pkg -target CurrentUserHomeDirectory && \
+        ~/.swiftly/bin/swiftly init --quiet-shell-followup && \
+        . "${SWIFTLY_HOME_DIR:-$HOME/.swiftly}/env.sh" && \
+        hash -r
+    - name: Install and select Swift version
+      run: |
+        swiftly install 6.1
+        swiftly use 6.1
+        swift --version
     - name: Build and run tests
-      run: xcrun swift test -Xswiftc -warnings-as-errors
+      run: swift test -Xswiftc -warnings-as-errors
   swift-tests-ubuntu:
     name: Swift tests (Ubuntu)
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+    - name: Install Swiftly
+      run: |
+        curl -O https://download.swift.org/swiftly/linux/swiftly-$(uname -m).tar.gz && \
+        tar zxf swiftly-$(uname -m).tar.gz && \
+        ./swiftly init --quiet-shell-followup && \
+        . "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/env.sh" && \
+        hash -r
+    - name: Install and select Swift version
+      run: |
+        swiftly install 6.1
+        swiftly use 6.1
+        swift --version
+    - name: Build and run tests
+      run: swift test -Xswiftc -warnings-as-errors
+  swift-tests-windows:
+    name: Swift tests (Windows)
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Install Swift
+      run: winget install --id Swift.Toolchain -e --version 6.1
+    - name: Print Swift version
+      run: swift --version
     - name: Build and run tests
       run: swift test -Xswiftc -warnings-as-errors
