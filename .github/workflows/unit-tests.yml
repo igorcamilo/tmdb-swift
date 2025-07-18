@@ -41,13 +41,11 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-    - name: Install Swiftly
+    - name: Install Swift
       run: |
         curl -O https://download.swift.org/swiftly/darwin/swiftly.pkg
         installer -pkg swiftly.pkg -target CurrentUserHomeDirectory
         ~/.swiftly/bin/swiftly init --skip-install --no-modify-profile
-    - name: Install and select Swift version
-      run: |
         ~/.swiftly/bin/swiftly install 6.1
         ~/.swiftly/bin/swiftly use 6.1
         swift --version
@@ -59,13 +57,11 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-    - name: Install Swiftly
+    - name: Install Swift
       run: |
         curl -O https://download.swift.org/swiftly/linux/swiftly-$(uname -m).tar.gz
         tar zxf swiftly-$(uname -m).tar.gz
         ./swiftly init --skip-install --no-modify-profile
-    - name: Install and select Swift version
-      run: |
         ./swiftly install 6.1
         ./swiftly use 6.1
         swift --version
@@ -78,8 +74,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
     - name: Install Swift
-      run: winget install --id Swift.Toolchain -e --version 6.1
-    - name: Print Swift version
-      run: swift --version
+      run: |
+        winget install --id Swift.Toolchain -e --version 6.1
+        swift --version
     - name: Build and run tests
       run: swift test -Xswiftc -warnings-as-errors
