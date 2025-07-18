@@ -72,9 +72,6 @@ jobs:
       uses: actions/checkout@v4
     - name: Install Swift
       run: |
-        winget install --id Swift.Toolchain -e --accept-package-agreements --accept-source-agreements --verbose-logs
-    - name: Upload WinGet logs
-      uses: actions/upload-artifact@v4
-      with:
-        name: WinGet Logs
-        path: '%LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir'
+        winget install --id Microsoft.VisualStudio.2022.Community --exact --force --custom "--add Microsoft.VisualStudio.Component.Windows11SDK.22000 --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.VC.Tools.ARM64"
+        winget install --id Swift.Toolchain -e --accept-package-agreements --accept-source-agreements
+        swift --version
