@@ -73,6 +73,8 @@ jobs:
     - name: Install Swift
       run: |
         winget install --id Swift.Toolchain -e --accept-package-agreements --accept-source-agreements --verbose-logs
-        swift --version
-    - name: Build and run tests
-      run: swift test -Xswiftc -warnings-as-errors
+    - name: Upload WinGet logs
+      uses: actions/upload-artifact@v4
+      with:
+        name: WinGet Logs
+        path: '%LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir'
