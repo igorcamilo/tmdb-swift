@@ -73,9 +73,7 @@ jobs:
     - name: Install Swift
       run: |
         winget install --id Swift.Toolchain -e --accept-package-agreements --accept-source-agreements
-        winget --info
-        winget list Swift.Toolchain
-        Get-Command swift
+        Get-ChildItem -Path "C:\" -Recurse -Filter swift.exe -ErrorAction SilentlyContinue
         swift --version
     - name: Build and run tests
       run: swift test -Xswiftc -warnings-as-errors
