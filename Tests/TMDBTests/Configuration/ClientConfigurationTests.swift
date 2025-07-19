@@ -1,5 +1,5 @@
 //
-//  ClientTests.swift
+//  ClientConfigurationTests.swift
 //  TMDB
 //
 //  Created by Igor Camilo on 16.07.25.
@@ -12,7 +12,7 @@ import FoundationNetworking
 import Testing
 import TMDB
 
-struct ClientTests {
+struct ClientConfigurationTests {
     @Test
     func configurationSuccess() async throws {
         // Setup

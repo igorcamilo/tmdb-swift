@@ -18,7 +18,7 @@ public final class Client: Sendable {
     public let accessToken: String
     public let performRequest: PerformRequest
 
-    private let decoder = JSONDecoder()
+    let decoder = JSONDecoder()
 
     public init(
         accessToken: String,
@@ -30,18 +30,7 @@ public final class Client: Sendable {
         }
     }
 
-    public func configuration() async throws -> Configuration {
-        var urlRequest = try urlRequest()
-        urlRequest.url?.appendPathComponent("configuration")
-        let response = try await performRequest(urlRequest)
-        if response.statusCode == 200 {
-            return try decoder.decode(Configuration.self, from: response.data)
-        } else {
-            throw try decoder.decode(ErrorContent.self, from: response.data)
-        }
-    }
-
-    private func urlRequest() throws -> URLRequest {
+    func urlRequest() throws -> URLRequest {
         let baseURLString = "https://api.themoviedb.org/3/"
         guard let baseURL = URL(string: baseURLString) else {
             throw ClientError.invalidBaseURL(baseURLString)
