@@ -1,10 +1,3 @@
-//
-//  Response.swift
-//  TMDB
-//
-//  Created by Igor Camilo on 17.07.25.
-//
-
 import Foundation
 #if canImport(FoundationNetworking)
 import FoundationNetworking

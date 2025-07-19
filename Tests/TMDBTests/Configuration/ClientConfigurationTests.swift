@@ -1,10 +1,3 @@
-//
-//  ClientTests.swift
-//  TMDB
-//
-//  Created by Igor Camilo on 16.07.25.
-//
-
 import Foundation
 #if canImport(FoundationNetworking)
 import FoundationNetworking
@@ -12,7 +5,7 @@ import FoundationNetworking
 import Testing
 import TMDB
 
-struct ClientTests {
+struct ClientConfigurationTests {
     @Test
     func configurationSuccess() async throws {
         // Setup

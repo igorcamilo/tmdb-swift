@@ -45,9 +45,10 @@ jobs:
       run: |
         curl -O https://download.swift.org/swiftly/darwin/swiftly.pkg
         installer -pkg swiftly.pkg -target CurrentUserHomeDirectory
-        ~/.swiftly/bin/swiftly init --quiet-shell-followup
+        ~/.swiftly/bin/swiftly init --skip-install --quiet-shell-followup
         . "${SWIFTLY_HOME_DIR:-$HOME/.swiftly}/env.sh"
         hash -r
+        swiftly install
         swift --version
     - name: Build and run tests
       run: swift test -Xswiftc -warnings-as-errors
@@ -62,9 +63,10 @@ jobs:
         sudo apt-get -y install libcurl4-openssl-dev
         curl -O https://download.swift.org/swiftly/linux/swiftly-$(uname -m).tar.gz
         tar zxf swiftly-$(uname -m).tar.gz
-        ./swiftly init --quiet-shell-followup
+        ./swiftly init --skip-install --quiet-shell-followup
         . "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/env.sh"
         hash -r
+        swiftly install
         swift --version
     - name: Build and run tests
       run: swift test -Xswiftc -warnings-as-errors

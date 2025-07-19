@@ -1,10 +1,3 @@
-//
-//  ErrorContent.swift
-//  TMDB
-//
-//  Created by Igor Camilo on 17.07.25.
-//
-
 public struct ErrorContent: Codable, Error, Hashable, Sendable {
     public var statusCode: Int
     public var statusMessage: String
