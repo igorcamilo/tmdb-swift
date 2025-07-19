@@ -1,10 +1,3 @@
-//
-//  Client+Configuration.swift
-//  TMDB
-//
-//  Created by Igor Camilo on 19.07.25.
-//
-
 extension Client {
     public func configuration() async throws -> Configuration {
         var urlRequest = try urlRequest()

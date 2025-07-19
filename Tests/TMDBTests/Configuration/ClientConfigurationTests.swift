@@ -1,10 +1,3 @@
-//
-//  ClientConfigurationTests.swift
-//  TMDB
-//
-//  Created by Igor Camilo on 16.07.25.
-//
-
 import Foundation
 #if canImport(FoundationNetworking)
 import FoundationNetworking

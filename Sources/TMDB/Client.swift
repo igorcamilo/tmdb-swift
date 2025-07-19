@@ -1,10 +1,3 @@
-//
-//  Client.swift
-//  TMDB
-//
-//  Created by Igor Camilo on 16.07.25.
-//
-
 #if swift(>=6.0)
 import Foundation
 #else
