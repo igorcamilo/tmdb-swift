@@ -26,12 +26,12 @@ struct ClientTVShowTests {
             try await client.tvShows(list: list)
         }
         // Verify
-        let urlRquest = try #require(await urlRequestStorage.value)
-        #expect(urlRquest.url?.absoluteString == absoluteURLString)
-        #expect(urlRquest.httpMethod == "GET")
-        #expect(urlRquest.httpBody == nil)
+        let urlRequest = try #require(await urlRequestStorage.value)
+        #expect(urlRequest.url?.absoluteString == absoluteURLString)
+        #expect(urlRequest.httpMethod == "GET")
+        #expect(urlRequest.httpBody == nil)
         #expect(
-            urlRquest.allHTTPHeaderFields == [
+            urlRequest.allHTTPHeaderFields == [
                 "Authorization": "Bearer ABC123",
                 "Accept": "application/json",
             ]
@@ -58,12 +58,12 @@ struct ClientTVShowTests {
             try await client.tvShows(list: list)
         }
         // Verify
-        let urlRquest = try #require(await urlRequestStorage.value)
-        #expect(urlRquest.url?.absoluteString == absoluteURLString)
-        #expect(urlRquest.httpMethod == "GET")
-        #expect(urlRquest.httpBody == nil)
+        let urlRequest = try #require(await urlRequestStorage.value)
+        #expect(urlRequest.url?.absoluteString == absoluteURLString)
+        #expect(urlRequest.httpMethod == "GET")
+        #expect(urlRequest.httpBody == nil)
         #expect(
-            urlRquest.allHTTPHeaderFields == [
+            urlRequest.allHTTPHeaderFields == [
                 "Authorization": "Bearer DEF456",
                 "Accept": "application/json",
             ]
@@ -91,12 +91,12 @@ struct ClientTVShowTests {
             try await client.tvShows(list: list)
         }
         // Verify
-        let urlRquest = try #require(await urlRequestStorage.value)
-        #expect(urlRquest.url?.absoluteString == absoluteURLString)
-        #expect(urlRquest.httpMethod == "GET")
-        #expect(urlRquest.httpBody == nil)
+        let urlRequest = try #require(await urlRequestStorage.value)
+        #expect(urlRequest.url?.absoluteString == absoluteURLString)
+        #expect(urlRequest.httpMethod == "GET")
+        #expect(urlRequest.httpBody == nil)
         #expect(
-            urlRquest.allHTTPHeaderFields == [
+            urlRequest.allHTTPHeaderFields == [
                 "Authorization": "Bearer GHI789",
                 "Accept": "application/json",
             ]
