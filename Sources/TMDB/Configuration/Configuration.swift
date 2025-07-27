@@ -43,6 +43,42 @@ public struct Configuration: Codable, Hashable, Sendable {
             self.stillSizes = stillSizes
         }
 
+        public func posterURL(
+            targetWidth: CGFloat? = nil,
+            path: PosterPath?
+        ) -> URL? {
+            guard
+                let path,
+                let width = width(
+                    list: \.posterSizes,
+                    targetWidth: targetWidth
+                )
+            else {
+                return nil
+            }
+            return secureBaseURL.appendingPathComponent(width + path.rawValue)
+        }
+
+        private func width(
+            list: KeyPath<Images, [String]>,
+            targetWidth: CGFloat?
+        ) -> String? {
+            guard
+                let intWidth = targetWidth.map(Int.init)
+            else {
+                return self[keyPath: list].last
+            }
+            return self[keyPath: list].first {
+                guard
+                    $0.hasPrefix("w"),
+                    let width = Int($0.dropFirst())
+                else {
+                    return false
+                }
+                return width >= intWidth
+            }
+        }
+
         private enum CodingKeys: String, CodingKey {
             case baseURL = "base_url"
             case secureBaseURL = "secure_base_url"

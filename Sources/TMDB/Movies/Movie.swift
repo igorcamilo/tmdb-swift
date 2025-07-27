@@ -7,7 +7,7 @@ public struct Movie: Codable, Hashable, Sendable {
     public var originalTitle: String
     public var overview: String
     public var popularity: Double
-    public var posterPath: String?
+    public var posterPath: PosterPath?
     public var releaseDate: String
     public var title: String
     public var video: Bool
@@ -23,7 +23,7 @@ public struct Movie: Codable, Hashable, Sendable {
         originalTitle: String,
         overview: String,
         popularity: Double,
-        posterPath: String?,
+        posterPath: PosterPath?,
         releaseDate: String,
         title: String,
         video: Bool,

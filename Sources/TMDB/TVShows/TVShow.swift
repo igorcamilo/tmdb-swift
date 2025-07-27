@@ -8,7 +8,7 @@ public struct TVShow: Codable, Hashable, Sendable {
     public var originalName: String
     public var overview: String
     public var popularity: Double
-    public var posterPath: String?
+    public var posterPath: PosterPath?
     public var firstAirDate: String
     public var name: String
     public var voteAverage: Double
@@ -24,7 +24,7 @@ public struct TVShow: Codable, Hashable, Sendable {
         originalName: String,
         overview: String,
         popularity: Double,
-        posterPath: String?,
+        posterPath: PosterPath?,
         firstAirDate: String,
         name: String,
         voteAverage: Double,
