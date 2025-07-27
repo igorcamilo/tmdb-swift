@@ -84,29 +84,30 @@ struct ClientConfigurationTests {
 
     @Test(
         arguments: [
-            (CGFloat(123), PosterPath(rawValue: "/123"), "https://kinova.co/w123/123"),
-            (nil, PosterPath(rawValue: "/123"), "https://kinova.co/xyz/123"),
-            (CGFloat(123), nil, nil),
-            (nil, nil, nil),
-            (CGFloat(456), PosterPath(rawValue: "/456"), "https://kinova.co/w500/456"),
-            (nil, PosterPath(rawValue: "/456"), "https://kinova.co/xyz/456"),
-            (CGFloat(456), nil, nil),
+            (100.0, "w122"),
+            (122.001, "w123"),
+            (123.0, "w123"),
+            (123.999, "w124"),
+            (124.0, "w124"),
+            (800.0, "xyz"),
+            (1000.0, "xyz"),
         ]
     )
-    func imagesPosterURL(targetWidth: CGFloat?, path: PosterPath?, result: String?) async throws {
+    func posterSize(width: CGFloat?, rawSize: String?) async throws {
         // Setup
+        let rawSizes = ["abc", "w122", "h123", "w123", "w124", "xyz"]
         let images = try Configuration.Images(
             baseURL: #require(URL(string: "https://kinova.co/")),
             secureBaseURL: #require(URL(string: "https://kinova.co/")),
             backdropSizes: [],
             logoSizes: [],
-            posterSizes: ["abc", "w122", "h123", "w123", "w124", "w500", "w780", "xyz"],
+            posterSizes: rawSizes.map(Configuration.Images.PosterSize.init),
             profileSizes: [],
             stillSizes: []
         )
         // Test
-        let url = images.posterURL(targetWidth: targetWidth, path: path)
+        let size = images.size(width: width, from: \.posterSizes)
         // Verify
-        #expect(url?.absoluteString == result)
+        #expect(size?.rawValue == rawSize)
     }
 }

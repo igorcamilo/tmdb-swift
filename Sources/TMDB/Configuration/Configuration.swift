@@ -21,7 +21,7 @@ public struct Configuration: Codable, Hashable, Sendable {
         public var secureBaseURL: URL
         public var backdropSizes: [String]
         public var logoSizes: [String]
-        public var posterSizes: [String]
+        public var posterSizes: [PosterSize]
         public var profileSizes: [String]
         public var stillSizes: [String]
 
@@ -30,7 +30,7 @@ public struct Configuration: Codable, Hashable, Sendable {
             secureBaseURL: URL,
             backdropSizes: [String],
             logoSizes: [String],
-            posterSizes: [String],
+            posterSizes: [PosterSize],
             profileSizes: [String],
             stillSizes: [String]
         ) {
@@ -43,38 +43,58 @@ public struct Configuration: Codable, Hashable, Sendable {
             self.stillSizes = stillSizes
         }
 
-        public func posterURL(
-            targetWidth: CGFloat? = nil,
-            path: PosterPath?
-        ) -> URL? {
-            guard
-                let path,
-                let width = width(
-                    list: \.posterSizes,
-                    targetWidth: targetWidth
-                )
-            else {
-                return nil
-            }
-            return secureBaseURL.appendingPathComponent(width + path.rawValue)
+        public func size<T: ImageSize>(
+            width: CGFloat? = nil,
+            from list: KeyPath<Images, [T]>
+        ) -> T? {
+            size(
+                width: width.map { Int(ceil($0)) },
+                from: list
+            )
         }
 
-        private func width(
-            list: KeyPath<Images, [String]>,
-            targetWidth: CGFloat?
-        ) -> String? {
-            guard let targetWidth else {
+        public func size<T: ImageSize>(
+            width: Int?,
+            from list: KeyPath<Images, [T]>
+        ) -> T? {
+            guard let width else {
                 return self[keyPath: list].last
             }
-            let intWidth = Int(ceil(targetWidth))
-            return self[keyPath: list].first {
+            let size = self[keyPath: list].first {
                 guard
-                    $0.hasPrefix("w"),
-                    let width = Int($0.dropFirst())
+                    $0.rawValue.hasPrefix("w"),
+                    let elementWidth = Int($0.rawValue.dropFirst())
                 else {
                     return false
                 }
-                return width >= intWidth
+                return elementWidth >= width
+            }
+            return size ?? self[keyPath: list].last
+        }
+
+        public func url<T: ImageSize>(
+            size: T,
+            path: T.ImagePath?
+        ) -> URL? {
+            guard let path else {
+                return nil
+            }
+            return secureBaseURL.appendingPathComponent(
+                size.rawValue + path.rawValue
+            )
+        }
+
+        public protocol ImageSize<ImagePath>: RawRepresentable<String> {
+            associatedtype ImagePath: RawRepresentable<String>
+        }
+
+        public struct PosterSize: Codable, Hashable, ImageSize, Sendable {
+            public typealias ImagePath = PosterPath
+
+            public var rawValue: String
+
+            public init(rawValue: String) {
+                self.rawValue = rawValue
             }
         }
 
