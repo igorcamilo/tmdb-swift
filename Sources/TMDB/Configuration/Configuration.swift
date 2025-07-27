@@ -63,11 +63,10 @@ public struct Configuration: Codable, Hashable, Sendable {
             list: KeyPath<Images, [String]>,
             targetWidth: CGFloat?
         ) -> String? {
-            guard
-                let intWidth = targetWidth.map { Int(ceil($0)) }
-            else {
+            guard let targetWidth else {
                 return self[keyPath: list].last
             }
+            let intWidth = Int(ceil(targetWidth))
             return self[keyPath: list].first {
                 guard
                     $0.hasPrefix("w"),
