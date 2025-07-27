@@ -1,13 +1,13 @@
 public struct Movie: Codable, Hashable, Sendable {
     public var adult: Bool
-    public var backdropPath: String
+    public var backdropPath: String?
     public var genreIDs: [Genre.ID]
     public var id: ID
     public var originalLanguage: String
     public var originalTitle: String
     public var overview: String
     public var popularity: Double
-    public var posterPath: String
+    public var posterPath: String?
     public var releaseDate: String
     public var title: String
     public var video: Bool
@@ -16,14 +16,14 @@ public struct Movie: Codable, Hashable, Sendable {
 
     public init(
         adult: Bool,
-        backdropPath: String,
+        backdropPath: String?,
         genreIDs: [Genre.ID],
         id: ID,
         originalLanguage: String,
         originalTitle: String,
         overview: String,
         popularity: Double,
-        posterPath: String,
+        posterPath: String?,
         releaseDate: String,
         title: String,
         video: Bool,

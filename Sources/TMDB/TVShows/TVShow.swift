@@ -1,6 +1,6 @@
 public struct TVShow: Codable, Hashable, Sendable {
     public var adult: Bool
-    public var backdropPath: String
+    public var backdropPath: String?
     public var genreIDs: [Genre.ID]
     public var id: ID
     public var originCountry: [String]
@@ -8,7 +8,7 @@ public struct TVShow: Codable, Hashable, Sendable {
     public var originalName: String
     public var overview: String
     public var popularity: Double
-    public var posterPath: String
+    public var posterPath: String?
     public var firstAirDate: String
     public var name: String
     public var voteAverage: Double
@@ -16,7 +16,7 @@ public struct TVShow: Codable, Hashable, Sendable {
 
     public init(
         adult: Bool,
-        backdropPath: String,
+        backdropPath: String?,
         genreIDs: [Genre.ID],
         id: ID,
         originCountry: [String],
@@ -24,7 +24,7 @@ public struct TVShow: Codable, Hashable, Sendable {
         originalName: String,
         overview: String,
         popularity: Double,
-        posterPath: String,
+        posterPath: String?,
         firstAirDate: String,
         name: String,
         voteAverage: Double,

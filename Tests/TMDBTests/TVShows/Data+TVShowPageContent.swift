@@ -418,7 +418,7 @@ private let content = #"""
         },
         {
             "adult": false,
-            "backdrop_path": "/yVIudr5ZNtFvomu6CdFGKAa3njk.jpg",
+            "backdrop_path": null,
             "genre_ids": [
                 35,
                 18,
@@ -432,7 +432,7 @@ private let content = #"""
             "original_name": "SpangaS",
             "overview": "Best Friends follows the life of a group of friends at their high school ‘Spangalis College’. Inside and outside of school exciting and challenging experiences take place. Growing up is never easy; every character has its own, unique story of love, friendship, loneliness, sorrow, discovery. There is drama and joy in school, family, teachers, parents, divorce, bullying, and always dreams for the future.",
             "popularity": 276.4241,
-            "poster_path": "/2bH7QQ7WQfnbt1CWiX8BE5E2V4t.jpg",
+            "poster_path": null,
             "first_air_date": "2007-09-03",
             "name": "Best Friends",
             "vote_average": 3,

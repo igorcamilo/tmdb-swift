@@ -396,7 +396,7 @@ private let content = #"""
         },
         {
             "adult": false,
-            "backdrop_path": "/apNfldKI3RiaukNwJzr8EjRG7Wc.jpg",
+            "backdrop_path": null,
             "genre_ids": [
                 53,
                 878
@@ -406,7 +406,7 @@ private let content = #"""
             "original_title": "Brick",
             "overview": "When a mysterious brick wall encloses their apartment building overnight, Tim and Olivia must unite with their wary neighbors to get out alive.",
             "popularity": 115.2344,
-            "poster_path": "/vTX9CxFNEQOlfXsgqec7xmc5UtD.jpg",
+            "poster_path": null,
             "release_date": "2025-07-09",
             "title": "Brick",
             "video": false,
