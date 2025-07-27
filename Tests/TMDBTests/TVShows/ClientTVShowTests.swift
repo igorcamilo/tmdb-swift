@@ -12,6 +12,7 @@ struct ClientTVShowTests {
             (TVShowList.onTheAir, "https://api.themoviedb.org/3/tv/on_the_air"),
             (TVShowList.popular, "https://api.themoviedb.org/3/tv/popular"),
             (TVShowList.topRated, "https://api.themoviedb.org/3/tv/top_rated"),
+            (TVShowList.similar(TVShow.ID(rawValue: 123)), "https://api.themoviedb.org/3/tv/123/similar"),
         ]
     )
     func tvShowsSuccess(list: TVShowList, absoluteURLString: String) async throws {
@@ -44,6 +45,7 @@ struct ClientTVShowTests {
             (TVShowList.onTheAir, "https://api.themoviedb.org/3/tv/on_the_air"),
             (TVShowList.popular, "https://api.themoviedb.org/3/tv/popular"),
             (TVShowList.topRated, "https://api.themoviedb.org/3/tv/top_rated"),
+            (TVShowList.similar(TVShow.ID(rawValue: 456)), "https://api.themoviedb.org/3/tv/456/similar"),
         ]
     )
     func tvShowsFailureResponse(list: TVShowList, absoluteURLString: String) async throws {
@@ -76,6 +78,7 @@ struct ClientTVShowTests {
             (TVShowList.onTheAir, "https://api.themoviedb.org/3/tv/on_the_air"),
             (TVShowList.popular, "https://api.themoviedb.org/3/tv/popular"),
             (TVShowList.topRated, "https://api.themoviedb.org/3/tv/top_rated"),
+            (TVShowList.similar(TVShow.ID(rawValue: 789)), "https://api.themoviedb.org/3/tv/789/similar"),
         ]
     )
     func tvShowsFailureRequest(list: TVShowList, absoluteURLString: String) async throws {

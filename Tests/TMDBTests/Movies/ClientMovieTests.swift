@@ -12,6 +12,7 @@ struct ClientMovieTests {
             (MovieList.popular, "https://api.themoviedb.org/3/movie/popular"),
             (MovieList.topRated, "https://api.themoviedb.org/3/movie/top_rated"),
             (MovieList.upcoming, "https://api.themoviedb.org/3/movie/upcoming"),
+            (MovieList.similar(Movie.ID(rawValue: 123)), "https://api.themoviedb.org/3/movie/123/similar"),
         ]
     )
     func moviesSuccess(list: MovieList, absoluteURLString: String) async throws {
@@ -44,6 +45,7 @@ struct ClientMovieTests {
             (MovieList.popular, "https://api.themoviedb.org/3/movie/popular"),
             (MovieList.topRated, "https://api.themoviedb.org/3/movie/top_rated"),
             (MovieList.upcoming, "https://api.themoviedb.org/3/movie/upcoming"),
+            (MovieList.similar(Movie.ID(rawValue: 456)), "https://api.themoviedb.org/3/movie/456/similar"),
         ]
     )
     func moviesFailureResponse(list: MovieList, absoluteURLString: String) async throws {
@@ -76,6 +78,7 @@ struct ClientMovieTests {
             (MovieList.popular, "https://api.themoviedb.org/3/movie/popular"),
             (MovieList.topRated, "https://api.themoviedb.org/3/movie/top_rated"),
             (MovieList.upcoming, "https://api.themoviedb.org/3/movie/upcoming"),
+            (MovieList.similar(Movie.ID(rawValue: 789)), "https://api.themoviedb.org/3/movie/789/similar"),
         ]
     )
     func moviesFailureRequest(list: MovieList, absoluteURLString: String) async throws {
