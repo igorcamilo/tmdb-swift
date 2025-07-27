@@ -64,7 +64,7 @@ public struct Configuration: Codable, Hashable, Sendable {
             targetWidth: CGFloat?
         ) -> String? {
             guard
-                let intWidth = targetWidth.map(Int.init)
+                let intWidth = targetWidth.map { Int(ceil($0)) }
             else {
                 return self[keyPath: list].last
             }
