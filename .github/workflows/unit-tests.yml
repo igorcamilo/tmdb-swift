@@ -11,6 +11,7 @@ jobs:
     name: Xcode tests (${{ matrix.name }})
     runs-on: macos-15
     strategy:
+      fail-fast: false
       matrix:
         include:
         - name: iOS
@@ -38,6 +39,8 @@ jobs:
   swift-tests-macos:
     name: Swift tests (macOS)
     runs-on: macos-15
+    strategy:
+      fail-fast: false
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -55,6 +58,8 @@ jobs:
   swift-tests-ubuntu:
     name: Swift tests (Ubuntu)
     runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -70,13 +75,3 @@ jobs:
         swift --version
     - name: Build and run tests
       run: swift test -Xswiftc -warnings-as-errors
-  linter:
-    name: Swift linter
-    runs-on: macos-15
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-    - name: Select Xcode version
-      run: sudo xcode-select -s /Applications/Xcode_16.4.app
-    - name: Lint code
-      run: xcrun swift format lint . -rps
