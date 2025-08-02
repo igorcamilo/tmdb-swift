@@ -19,7 +19,24 @@ jobs:
         - name: GitHub Actions
           language: actions
           build-mode: none
-        - name: Swift
+        - name: Swift iOS
+          destination: platform=iOS Simulator,arch=arm64,OS=18.5,name=iPhone 16
+          language: swift
+          build-mode: manual
+        - name: Swift macOS
+          destination: platform=macOS,arch=arm64
+          language: swift
+          build-mode: manual
+        - name: Swift tvOS
+          destination: platform=tvOS Simulator,arch=arm64,OS=18.5,name=Apple TV 4K (3rd generation)
+          language: swift
+          build-mode: manual
+        - name: Swift visionOS
+          destination: platform=visionOS Simulator,arch=arm64,OS=2.5,name=Apple Vision Pro
+          language: swift
+          build-mode: manual
+        - name: Swift watchOS
+          destination: platform=watchOS Simulator,arch=arm64,OS=11.5,name=Apple Watch Series 10 (42mm)
           language: swift
           build-mode: manual
     steps:
@@ -35,7 +52,7 @@ jobs:
       run: sudo xcode-select -s /Applications/Xcode_16.4.app
     - if: matrix.language == 'swift'
       name: Build with Xcode
-      run: xcrun xcodebuild -scheme TMDB CODE_SIGNING_ALLOWED=NO
+      run: xcrun xcodebuild -scheme TMDB -destination "${{ matrix.destination }}" CODE_SIGNING_ALLOWED=NO
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
       with:
