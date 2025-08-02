@@ -7,7 +7,7 @@ on:
   schedule:
     - cron: '0 0 * * *'
 jobs:
-  analyze:
+  codeql:
     name: CodeQL (${{ matrix.name }})
     runs-on: ${{ (matrix.language == 'swift' && 'macos-15') || 'ubuntu-24.04' }}
     permissions:
