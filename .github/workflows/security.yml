@@ -1,0 +1,42 @@
+name: "Security"
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  analyze:
+    name: CodeQL (${{ matrix.name }})
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-15') || 'ubuntu-24.04' }}
+    permissions:
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - name: GitHub Actions
+          language: actions
+          build-mode: none
+        - name: Swift
+          language: swift
+          build-mode: manual
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ matrix.language }}
+        build-mode: ${{ matrix.build-mode }}
+    - if: matrix.language == 'swift'
+      name: Select Xcode version
+      run: sudo xcode-select -s /Applications/Xcode_16.4.app
+    - if: matrix.language == 'swift'
+      name: Build with Xcode
+      run: xcrun xcodebuild -scheme TMDB CODE_SIGNING_ALLOWED=NO
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:${{matrix.language}}"
