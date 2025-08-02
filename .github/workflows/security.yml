@@ -24,15 +24,11 @@ jobs:
           language: swift
           build-mode: manual
         - name: Swift macOS
-          destination: platform=macOS,arch=arm64
+          destination: platform=macOS,arch=x86_64
           language: swift
           build-mode: manual
         - name: Swift tvOS
           destination: platform=tvOS Simulator,arch=arm64,OS=18.5,name=Apple TV 4K (3rd generation)
-          language: swift
-          build-mode: manual
-        - name: Swift visionOS
-          destination: platform=visionOS Simulator,arch=arm64,OS=2.5,name=Apple Vision Pro
           language: swift
           build-mode: manual
         - name: Swift watchOS
