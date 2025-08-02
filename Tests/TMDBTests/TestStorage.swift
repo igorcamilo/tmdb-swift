@@ -1,7 +1,7 @@
 actor TestStorage<T> {
-    var value: T?
+  var value: T?
 
-    func setValue(_ value: T) {
-        self.value = value
-    }
+  func setValue(_ value: T) {
+    self.value = value
+  }
 }
