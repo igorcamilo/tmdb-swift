@@ -30,7 +30,12 @@ jobs:
     - name: Select Xcode version
       run: sudo xcode-select -s /Applications/Xcode_16.4.app
     - name: Build and run tests
-      run: xcrun xcodebuild test -scheme TMDB -resultBundlePath "Artifacts/TestResults (${{ matrix.name }}).xcresult" -destination "${{ matrix.destination }}" CODE_SIGNING_ALLOWED=NO SWIFT_TREAT_WARNINGS_AS_ERRORS=YES
+      run: xcrun xcodebuild test -scheme TMDB -resultBundlePath "Artifacts/TestResults (${{ matrix.name }}).xcresult" -destination "${{ matrix.destination }}" -enableCodeCoverage YES CODE_SIGNING_ALLOWED=NO SWIFT_TREAT_WARNINGS_AS_ERRORS=YES
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: igorcamilo/tmdb-swift
     - name: Upload Xcode result bundle
       uses: actions/upload-artifact@v4
       with:
