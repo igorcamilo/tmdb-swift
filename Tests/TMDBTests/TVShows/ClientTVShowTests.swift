@@ -19,10 +19,23 @@ struct ClientTVShowTests {
   func tvShowsSuccess(list: TVShowList, absoluteURLString: String) async throws {
     // Setup
     let urlRequestStorage = TestStorage<URLRequest>()
+    let data: Data
+    switch list {
+    case .airingToday:
+      data = .airingTodayTVShows
+    case .onTheAir:
+      data = .onTheAirTVShows
+    case .popular:
+      data = .popularTVShows
+    case .topRated:
+      data = .topRatedTVShows
+    case .similar:
+      data = .similarTVShows
+    }
     // Test
     let client = Client(accessToken: "ABC123") {
       await urlRequestStorage.setValue($0)
-      return Response(data: .tvShowPageContent, statusCode: 200)
+      return Response(data: data, statusCode: 200)
     }
     await #expect(throws: Never.self) {
       try await client.tvShows(list: list)
