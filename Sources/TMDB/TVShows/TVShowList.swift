@@ -1,4 +1,4 @@
-public enum TVShowList: Codable, Hashable, Identifiable, Sendable {
+public enum TVShowList: Codable, Hashable, Sendable {
   /// TV shows airing today.
   case airingToday
   /// TV shows that air in the next 7 days.
@@ -9,8 +9,8 @@ public enum TVShowList: Codable, Hashable, Identifiable, Sendable {
   case topRated
   /// Similar TV shows based on genres and keywords.
   case similar(TVShow.ID)
-
-  public var id: Self { self }
+  /// Trending TV shows on TMDB.
+  case trending(TrendingTimeWindow)
 
   var pathComponent: String {
     switch self {
@@ -24,6 +24,8 @@ public enum TVShowList: Codable, Hashable, Identifiable, Sendable {
       "tv/top_rated"
     case .similar(let id):
       "tv/\(id.rawValue)/similar"
+    case .trending(let timeWindow):
+      "trending/tv/\(timeWindow.rawValue)"
     }
   }
 }

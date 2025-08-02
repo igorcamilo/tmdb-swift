@@ -14,6 +14,7 @@ struct ClientMovieTests {
       (MovieList.topRated, "https://api.themoviedb.org/3/movie/top_rated"),
       (MovieList.upcoming, "https://api.themoviedb.org/3/movie/upcoming"),
       (MovieList.similar(123), "https://api.themoviedb.org/3/movie/123/similar"),
+      (MovieList.trending(.day), "https://api.themoviedb.org/3/trending/movie/day"),
     ]
   )
   func moviesSuccess(list: MovieList, absoluteURLString: String) async throws {
@@ -31,6 +32,8 @@ struct ClientMovieTests {
       data = .upcomingMovies
     case .similar:
       data = .similarMovies
+    case .trending:
+      data = .trendingMovies
     }
     // Test
     let client = Client(accessToken: "ABC123") {
@@ -60,6 +63,7 @@ struct ClientMovieTests {
       (MovieList.topRated, "https://api.themoviedb.org/3/movie/top_rated"),
       (MovieList.upcoming, "https://api.themoviedb.org/3/movie/upcoming"),
       (MovieList.similar(456), "https://api.themoviedb.org/3/movie/456/similar"),
+      (MovieList.trending(.week), "https://api.themoviedb.org/3/trending/movie/week"),
     ]
   )
   func moviesFailureResponse(list: MovieList, absoluteURLString: String) async throws {
@@ -93,6 +97,7 @@ struct ClientMovieTests {
       (MovieList.topRated, "https://api.themoviedb.org/3/movie/top_rated"),
       (MovieList.upcoming, "https://api.themoviedb.org/3/movie/upcoming"),
       (MovieList.similar(789), "https://api.themoviedb.org/3/movie/789/similar"),
+      (MovieList.trending(.day), "https://api.themoviedb.org/3/trending/movie/day"),
     ]
   )
   func moviesFailureRequest(list: MovieList, absoluteURLString: String) async throws {

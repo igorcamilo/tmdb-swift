@@ -14,6 +14,7 @@ struct ClientTVShowTests {
       (TVShowList.popular, "https://api.themoviedb.org/3/tv/popular"),
       (TVShowList.topRated, "https://api.themoviedb.org/3/tv/top_rated"),
       (TVShowList.similar(123), "https://api.themoviedb.org/3/tv/123/similar"),
+      (TVShowList.trending(.day), "https://api.themoviedb.org/3/trending/tv/day"),
     ]
   )
   func tvShowsSuccess(list: TVShowList, absoluteURLString: String) async throws {
@@ -31,6 +32,8 @@ struct ClientTVShowTests {
       data = .topRatedTVShows
     case .similar:
       data = .similarTVShows
+    case .trending:
+      data = .trendingTVShows
     }
     // Test
     let client = Client(accessToken: "ABC123") {
@@ -60,6 +63,7 @@ struct ClientTVShowTests {
       (TVShowList.popular, "https://api.themoviedb.org/3/tv/popular"),
       (TVShowList.topRated, "https://api.themoviedb.org/3/tv/top_rated"),
       (TVShowList.similar(456), "https://api.themoviedb.org/3/tv/456/similar"),
+      (TVShowList.trending(.week), "https://api.themoviedb.org/3/trending/tv/week"),
     ]
   )
   func tvShowsFailureResponse(list: TVShowList, absoluteURLString: String) async throws {
@@ -93,6 +97,7 @@ struct ClientTVShowTests {
       (TVShowList.popular, "https://api.themoviedb.org/3/tv/popular"),
       (TVShowList.topRated, "https://api.themoviedb.org/3/tv/top_rated"),
       (TVShowList.similar(789), "https://api.themoviedb.org/3/tv/789/similar"),
+      (TVShowList.trending(.day), "https://api.themoviedb.org/3/trending/tv/day"),
     ]
   )
   func tvShowsFailureRequest(list: TVShowList, absoluteURLString: String) async throws {

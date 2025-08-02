@@ -1,4 +1,4 @@
-public enum MovieList: Codable, Hashable, Identifiable, Sendable {
+public enum MovieList: Codable, Hashable, Sendable {
   /// Movies that are currently in theatres.
   case nowPlaying
   /// Movies ordered by popularity.
@@ -9,8 +9,8 @@ public enum MovieList: Codable, Hashable, Identifiable, Sendable {
   case upcoming
   /// Similar movies based on genres and keywords.
   case similar(Movie.ID)
-
-  public var id: Self { self }
+  /// Trending movies on TMDB.
+  case trending(TrendingTimeWindow)
 
   var pathComponent: String {
     switch self {
@@ -24,6 +24,8 @@ public enum MovieList: Codable, Hashable, Identifiable, Sendable {
       "movie/upcoming"
     case .similar(let id):
       "movie/\(id.rawValue)/similar"
+    case .trending(let timeWindow):
+      "trending/movie/\(timeWindow.rawValue)"
     }
   }
 }
