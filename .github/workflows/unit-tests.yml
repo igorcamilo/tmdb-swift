@@ -55,26 +55,16 @@ jobs:
       with:
         name: Artifacts (${{ matrix.name }})
         path: Artifacts
-  swift-tests-macos:
-    name: Swift tests (macOS)
-    runs-on: macos-15
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-    - name: Install Swift
-      run: |
-        curl -O https://download.swift.org/swiftly/darwin/swiftly.pkg
-        installer -pkg swiftly.pkg -target CurrentUserHomeDirectory
-        ~/.swiftly/bin/swiftly init --skip-install --quiet-shell-followup
-        . "${SWIFTLY_HOME_DIR:-$HOME/.swiftly}/env.sh"
-        hash -r
-        swiftly install 6.1.2
-        swift --version
-    - name: Build and run tests
-      run: swift test -Xswiftc -warnings-as-errors
-  swift-tests-ubuntu:
-    name: Swift tests (Ubuntu)
+  swift-tests:
+    name: Swift tests (${{ matrix.swift-version }})
     runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        swift-version:
+        - 6.1.2
+        - 6.0.3
+        - 5.10.1
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -86,7 +76,7 @@ jobs:
         ./swiftly init --skip-install --quiet-shell-followup
         . "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/env.sh"
         hash -r
-        swiftly install 6.1.2
+        swiftly install ${{ matrix.swift-version }}
         swift --version
     - name: Build and run tests
       run: swift test -Xswiftc -warnings-as-errors
