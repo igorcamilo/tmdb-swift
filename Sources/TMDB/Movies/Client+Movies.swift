@@ -1,4 +1,15 @@
 extension Client {
+    public func movieDetails(id: Movie.ID) async throws -> MovieDetails {
+    var urlRequest = try urlRequest()
+    urlRequest.url?.appendPathComponent("movie/\(id.rawValue)")
+    let response = try await performRequest(urlRequest)
+    if response.statusCode == 200 {
+      return try decoder.decode(MovieDetails.self, from: response.data)
+    } else {
+      throw try decoder.decode(ErrorContent.self, from: response.data)
+    }
+  }
+
   public func movies(list: MovieList) async throws -> PageContent<Movie> {
     var urlRequest = try urlRequest()
     urlRequest.url?.appendPathComponent(list.pathComponent)
