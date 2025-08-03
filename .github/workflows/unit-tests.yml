@@ -76,8 +76,8 @@ jobs:
         ./swiftly init --skip-install --quiet-shell-followup
         . "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/env.sh"
         hash -r
-        swiftly install ${{ matrix.swift-version }}
+        swiftly install --use ${{ matrix.swift-version }}
     - name: Build and run tests
       run: |
-        swift --version
-        swift test -Xswiftc -warnings-as-errors
+        swiftly run swift --version
+        swiftly run swift test -Xswiftc -warnings-as-errors

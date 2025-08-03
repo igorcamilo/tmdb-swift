@@ -21,8 +21,8 @@ jobs:
         ./swiftly init --skip-install --quiet-shell-followup
         . "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/env.sh"
         hash -r
-        swiftly install 6.1.2
+        swiftly install --use 6.1.2
     - name: Lint code
       run: |
-        swift --version
-        swift format lint . -rps
+        swiftly run swift --version
+        swiftly run swift format lint . -rps
