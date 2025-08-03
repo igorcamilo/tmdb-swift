@@ -1,8 +1,4 @@
-#if swift(>=6.0)
-  import Foundation
-#else
-  @preconcurrency import Foundation
-#endif
+import Foundation
 
 public struct Images: Codable, Hashable, Sendable {
   public var baseURL: URL
