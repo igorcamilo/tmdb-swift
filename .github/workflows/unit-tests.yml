@@ -62,8 +62,8 @@ jobs:
       fail-fast: false
       matrix:
         swift-version:
-        - 6.1.2
-        - 6.0.3
+        - 6.1
+        - 6.0
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -80,29 +80,35 @@ jobs:
         swiftly run swift test -Xswiftc -warnings-as-errors
   swift-tests-macOS:
     name: Swift tests (macOS ${{ matrix.swift-version }})
-    runs-on: macos-15
+    runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
       matrix:
-        swift-version:
-        - 6.1.2
-        - 6.0.3
-        - 5.10.1
-        - 5.9.2
-        - 5.8.1
-        - 5.7.3
-        - 5.6.3
-        - 5.5.3
+        include:
+        - swift-version: 6.1
+          xcode-version: 16.3
+          runner: macos-15
+        - swift-version: 6.0
+          xcode-version: 16.0
+          runner: macos-15
+        - swift-version: 5.10
+          xcode-version: 15.3
+          runner: macos-14
+        - swift-version: 5.9
+          xcode-version: 15.0
+          runner: macos-14
+        - swift-version: 5.8
+          xcode-version: 14.3
+          runner: macos-13
+        - swift-version: 5.7
+          xcode-version: 14.1
+          runner: macos-13
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-    - name: Install Swift and run tests
+    - name: Select Xcode version
+      run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode-version }}.app
+    - name: Build and run tests
       run: |
-        curl -O https://download.swift.org/swiftly/darwin/swiftly.pkg
-        installer -pkg swiftly.pkg -target CurrentUserHomeDirectory
-        ~/.swiftly/bin/swiftly init --skip-install --quiet-shell-followup
-        . "${SWIFTLY_HOME_DIR:-$HOME/.swiftly}/env.sh"
-        hash -r
-        swiftly install --use ${{ matrix.swift-version }}
-        swiftly run swift --version
-        swiftly run swift test -Xswiftc -warnings-as-errors
+        xcrun swift --version
+        xcrun swift test -Xswiftc -warnings-as-errors
