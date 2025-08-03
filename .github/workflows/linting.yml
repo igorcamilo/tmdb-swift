@@ -22,6 +22,7 @@ jobs:
         . "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/env.sh"
         hash -r
         swiftly install 6.1.2
-        swift --version
     - name: Lint code
-      run: swift format lint . -rps
+      run: |
+        swift --version
+        swift format lint . -rps
