@@ -1,4 +1,15 @@
-public enum Genre {
+public struct Genre: Codable, Hashable, Identifiable, Sendable {
+  public var id: ID
+  public var name: String
+
+  public init(
+    id: ID,
+    name: String
+  ) {
+    self.id = id
+    self.name = name
+  }
+
   public struct ID: Codable, Hashable, RawRepresentable, Sendable {
     public var rawValue: Int
 

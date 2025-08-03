@@ -1,34 +1,34 @@
-public struct Movie: Codable, Hashable, Sendable {
+public struct Movie: Codable, Hashable, Identifiable, Sendable {
   public var adult: Bool
   public var backdropPath: String?
-  public var genreIDs: [Genre.ID]
+  public var genreIDs: [Genre.ID]?
   public var id: ID
   public var originalLanguage: String
   public var originalTitle: String
   public var overview: String
-  public var popularity: Double
+  public var popularity: Double?
   public var posterPath: PosterPath?
-  public var releaseDate: String
+  public var releaseDate: String?
   public var title: String
-  public var video: Bool
-  public var voteAverage: Double
-  public var voteCount: Int
+  public var video: Bool?
+  public var voteAverage: Double?
+  public var voteCount: Int?
 
   public init(
     adult: Bool,
-    backdropPath: String?,
-    genreIDs: [Genre.ID],
+    backdropPath: String? = nil,
+    genreIDs: [Genre.ID]? = nil,
     id: ID,
     originalLanguage: String,
     originalTitle: String,
     overview: String,
-    popularity: Double,
-    posterPath: PosterPath?,
-    releaseDate: String,
+    popularity: Double? = nil,
+    posterPath: PosterPath? = nil,
+    releaseDate: String? = nil,
     title: String,
-    video: Bool,
-    voteAverage: Double,
-    voteCount: Int
+    video: Bool? = nil,
+    voteAverage: Double? = nil,
+    voteCount: Int? = nil,
   ) {
     self.adult = adult
     self.backdropPath = backdropPath
