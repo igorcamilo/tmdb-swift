@@ -68,7 +68,7 @@ jobs:
         ~/.swiftly/bin/swiftly init --skip-install --quiet-shell-followup
         . "${SWIFTLY_HOME_DIR:-$HOME/.swiftly}/env.sh"
         hash -r
-        swiftly install
+        swiftly install 6.1.2
         swift --version
     - name: Build and run tests
       run: swift test -Xswiftc -warnings-as-errors
@@ -86,7 +86,7 @@ jobs:
         ./swiftly init --skip-install --quiet-shell-followup
         . "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/env.sh"
         hash -r
-        swiftly install
+        swiftly install 6.1.2
         swift --version
     - name: Build and run tests
       run: swift test -Xswiftc -warnings-as-errors
