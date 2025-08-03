@@ -12,17 +12,18 @@ struct ImagesTests {
       (124.0, "w124"),
       (800.0, "xyz"),
       (1000.0, "xyz"),
+      (nil, "xyz"),
     ]
   )
-  func size(width: CGFloat?, rawSize: String?) async throws {
+  func size(width: CGFloat?, expectedSize: PosterSize) async throws {
     // Setup
-    let posterSizes: [PosterSize] = ["abc", "w122", "h123", "w123", "w124", "xyz"]
+    let allSizes: [PosterSize] = ["abc", "w122", "h123", "w123", "w124", "xyz"]
     let images = try Images(
       baseURL: #require(URL(string: "https://kinova.co/")),
       secureBaseURL: #require(URL(string: "https://kinova.co/")),
       backdropSizes: [],
       logoSizes: [],
-      posterSizes: posterSizes,
+      posterSizes: allSizes,
       profileSizes: [],
       stillSizes: []
     )
@@ -32,7 +33,7 @@ struct ImagesTests {
       from: \.posterSizes
     )
     // Verify
-    #expect(size?.rawValue == rawSize)
+    #expect(size == expectedSize)
   }
 
   @Test(

@@ -35,7 +35,6 @@ struct ClientMovieTests {
     case .trending:
       data = .trendingMovies
     }
-    Issue.record("aaaaa")
     // Test
     let client = Client(accessToken: "ABC123") {
       await urlRequestStorage.setValue($0)
