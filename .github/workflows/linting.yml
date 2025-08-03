@@ -13,7 +13,7 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-    - name: Install Swift
+    - name: Install Swift and run linter
       run: |
         sudo apt-get -y install libcurl4-openssl-dev
         curl -O https://download.swift.org/swiftly/linux/swiftly-$(uname -m).tar.gz
@@ -22,7 +22,5 @@ jobs:
         . "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/env.sh"
         hash -r
         swiftly install --use 6.1.2
-    - name: Lint code
-      run: |
         swiftly run swift --version
         swiftly run swift format lint . -rps

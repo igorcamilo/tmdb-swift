@@ -65,10 +65,15 @@ jobs:
         - 6.1.2
         - 6.0.3
         - 5.10.1
+        - 5.9.2
+        - 5.8.1
+        - 5.7.3
+        - 5.6.3
+        - 5.5.3
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-    - name: Install Swift
+    - name: Install Swift and run tests
       run: |
         sudo apt-get -y install libcurl4-openssl-dev
         curl -O https://download.swift.org/swiftly/linux/swiftly-$(uname -m).tar.gz
@@ -77,7 +82,5 @@ jobs:
         . "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/env.sh"
         hash -r
         swiftly install --use ${{ matrix.swift-version }}
-    - name: Build and run tests
-      run: |
         swiftly run swift --version
         swiftly run swift test -Xswiftc -warnings-as-errors
