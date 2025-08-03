@@ -27,10 +27,12 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+    - name: Install xcpretty
+      run: gem install xcpretty
     - name: Select Xcode version
       run: sudo xcode-select -s /Applications/Xcode_16.4.app
     - name: Build and run tests
-      run: xcrun xcodebuild test -scheme TMDB -resultBundlePath "Artifacts/TestResults (${{ matrix.name }}).xcresult" -destination "${{ matrix.destination }}" -enableCodeCoverage YES CODE_SIGNING_ALLOWED=NO SWIFT_TREAT_WARNINGS_AS_ERRORS=YES
+      run: xcrun xcodebuild test -scheme TMDB -resultBundlePath "Artifacts/TestResults (${{ matrix.name }}).xcresult" -destination "${{ matrix.destination }}" -enableCodeCoverage YES CODE_SIGNING_ALLOWED=NO SWIFT_TREAT_WARNINGS_AS_ERRORS=YES | xcpretty -r junit
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v5
       with:
