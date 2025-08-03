@@ -16,19 +16,19 @@ public struct Movie: Codable, Hashable, Identifiable, Sendable {
 
   public init(
     adult: Bool,
-    backdropPath: String? = nil,
-    genreIDs: [Genre.ID]? = nil,
+    backdropPath: String?,
+    genreIDs: [Genre.ID]?,
     id: ID,
     originalLanguage: String,
     originalTitle: String,
     overview: String,
-    popularity: Double? = nil,
-    posterPath: PosterPath? = nil,
-    releaseDate: String? = nil,
+    popularity: Double?,
+    posterPath: PosterPath?,
+    releaseDate: String?,
     title: String,
-    video: Bool? = nil,
-    voteAverage: Double? = nil,
-    voteCount: Int? = nil
+    video: Bool?,
+    voteAverage: Double?,
+    voteCount: Int?
   ) {
     self.adult = adult
     self.backdropPath = backdropPath
