@@ -1,4 +1,4 @@
-public struct TVShow: Codable, Hashable, Sendable {
+public struct TVShow: Codable, Hashable, Identifiable, Sendable {
   public var adult: Bool
   public var backdropPath: String?
   public var genreIDs: [Genre.ID]
