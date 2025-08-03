@@ -28,7 +28,7 @@ public struct Movie: Codable, Hashable, Identifiable, Sendable {
     title: String,
     video: Bool? = nil,
     voteAverage: Double? = nil,
-    voteCount: Int? = nil,
+    voteCount: Int? = nil
   ) {
     self.adult = adult
     self.backdropPath = backdropPath

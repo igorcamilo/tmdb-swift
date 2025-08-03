@@ -8,7 +8,7 @@ public struct MovieCollection: Codable, Hashable, Identifiable, Sendable {
     id: ID,
     name: String,
     posterPath: PosterPath?,
-    backdropPath: String?,
+    backdropPath: String?
   ) {
     self.id = id
     self.name = name

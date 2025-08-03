@@ -18,7 +18,7 @@ struct MovieDetailsTests {
         id: 86860,
         name: "Scooby-Doo Collection",
         posterPath: "/GoZ2F80wVsnvdXtwtWY5HPnxYG.jpg",
-        backdropPath: "/crBcWcmfSwM1FaFr7s3dOyzSF9m.jpg",
+        backdropPath: "/crBcWcmfSwM1FaFr7s3dOyzSF9m.jpg"
       ),
       budget: 84_000_000,
       genres: [
@@ -42,13 +42,13 @@ struct MovieDetailsTests {
           id: 748,
           logoPath: nil,
           name: "Mosaic Media Group",
-          originCountry: "US",
+          originCountry: "US"
         ),
         ProductionCompany(
           id: 174,
           logoPath: "/kgJaIcKZZK4lTazer55XrgWDEvp.png",
           name: "Warner Bros. Pictures",
-          originCountry: "US",
+          originCountry: "US"
         ),
       ],
       productionCountries: [Country(iso31661: "US", name: "United States of America")],
@@ -67,7 +67,7 @@ struct MovieDetailsTests {
       title: "Scooby-Doo",
       video: false,
       voteAverage: 6.1,
-      voteCount: 4561,
+      voteCount: 4561
     )
     #expect(movieDetails == expectedMovieDetails)
   }
@@ -106,7 +106,7 @@ struct MovieDetailsTests {
       title: "Home alone collection",
       video: false,
       voteAverage: 0,
-      voteCount: 0,
+      voteCount: 0
     )
     #expect(movieDetails == expectedMovieDetails)
   }
