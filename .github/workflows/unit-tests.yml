@@ -27,12 +27,16 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-    - name: Install xcpretty
-      run: gem install xcpretty
+    - name: Install xcresultparser
+      run: brew install xcresultparser
     - name: Select Xcode version
       run: sudo xcode-select -s /Applications/Xcode_16.4.app
     - name: Build and run tests
-      run: xcrun xcodebuild test -scheme TMDB -resultBundlePath "Artifacts/TestResults (${{ matrix.name }}).xcresult" -destination "${{ matrix.destination }}" -enableCodeCoverage YES CODE_SIGNING_ALLOWED=NO SWIFT_TREAT_WARNINGS_AS_ERRORS=YES | xcpretty -r junit
+      run: xcrun xcodebuild test -scheme TMDB -resultBundlePath "Artifacts/testResult.xcresult" -destination "${{ matrix.destination }}" -enableCodeCoverage YES CODE_SIGNING_ALLOWED=NO SWIFT_TREAT_WARNINGS_AS_ERRORS=YES
+    - name: Convert xcresult to JUnit
+      run: xcresultparser -o junit Artifacts/testResult.xcresult > testResult.xml
+    - name: Convert xcresult to HTML
+      run: xcresultparser -o html Artifacts/testResult.xcresult > testResult.html
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v5
       with:
@@ -45,7 +49,7 @@ jobs:
     - name: Upload Xcode result bundle
       uses: actions/upload-artifact@v4
       with:
-        name: TestResults (${{ matrix.name }})
+        name: Artifacts (${{ matrix.name }})
         path: Artifacts
   swift-tests-macos:
     name: Swift tests (macOS)
