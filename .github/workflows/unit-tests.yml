@@ -55,29 +55,6 @@ jobs:
       with:
         name: Artifacts (${{ matrix.name }})
         path: Artifacts
-  swift-tests-linux:
-    name: Swift ${{ matrix.swift-version }} (Linux)
-    runs-on: ubuntu-24.04
-    strategy:
-      fail-fast: false
-      matrix:
-        swift-version:
-        - "6.1"
-        - "6.0"
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-    - name: Install Swift and run tests
-      run: |
-        sudo apt-get -y install libcurl4-openssl-dev
-        curl -O https://download.swift.org/swiftly/linux/swiftly-$(uname -m).tar.gz
-        tar zxf swiftly-$(uname -m).tar.gz
-        ./swiftly init --skip-install --quiet-shell-followup
-        . "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/env.sh"
-        hash -r
-        swiftly install --use ${{ matrix.swift-version }}
-        swiftly run swift --version
-        swiftly run swift test -Xswiftc -warnings-as-errors
   swift-tests-macOS:
     name: Swift ${{ matrix.swift-version }} (macOS)
     runs-on: ${{ matrix.runner }}
@@ -110,3 +87,26 @@ jobs:
         else
           xcrun swift build -Xswiftc -warnings-as-errors
         fi
+  swift-tests-ubuntu:
+    name: Swift ${{ matrix.swift-version }} (Linux)
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        swift-version:
+        - "6.1"
+        - "6.0"
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Install Swift and run tests
+      run: |
+        sudo apt-get -y install libcurl4-openssl-dev
+        curl -O https://download.swift.org/swiftly/linux/swiftly-$(uname -m).tar.gz
+        tar zxf swiftly-$(uname -m).tar.gz
+        ./swiftly init --skip-install --quiet-shell-followup
+        . "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/env.sh"
+        hash -r
+        swiftly install --use ${{ matrix.swift-version }}
+        swiftly run swift --version
+        swiftly run swift test -Xswiftc -warnings-as-errors
