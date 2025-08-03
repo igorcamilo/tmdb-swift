@@ -1,4 +1,4 @@
-name: "Linting"
+name: "Linter"
 on:
   push:
     branches: [ "main" ]
@@ -8,7 +8,7 @@ permissions:
   contents: read
 jobs:
   swift-linter:
-    name: Swift linter
+    name: Swift
     runs-on: ubuntu-24.04
     steps:
     - name: Checkout repository
@@ -21,6 +21,6 @@ jobs:
         ./swiftly init --skip-install --quiet-shell-followup
         . "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/env.sh"
         hash -r
-        swiftly install --use 6.1.2
+        swiftly install --use 6.1
         swiftly run swift --version
         swiftly run swift format lint . -rps

@@ -8,7 +8,7 @@ permissions:
   contents: read
 jobs:
   xcode-tests:
-    name: Xcode tests (${{ matrix.name }})
+    name: Xcode 16.4 (${{ matrix.name }})
     runs-on: macos-15
     strategy:
       fail-fast: false
@@ -56,7 +56,7 @@ jobs:
         name: Artifacts (${{ matrix.name }})
         path: Artifacts
   swift-tests-linux:
-    name: Swift tests (Linux ${{ matrix.swift-version }})
+    name: Swift ${{ matrix.swift-version }} (Linux)
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
@@ -79,7 +79,7 @@ jobs:
         swiftly run swift --version
         swiftly run swift test -Xswiftc -warnings-as-errors
   swift-tests-macOS:
-    name: Swift tests (macOS ${{ matrix.swift-version }})
+    name: Swift ${{ matrix.swift-version }} (macOS)
     runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
@@ -97,12 +97,6 @@ jobs:
         - swift-version: "5.9"
           xcode-version: "15.0"
           runner: macos-14
-        - swift-version: "5.8"
-          xcode-version: "14.3"
-          runner: macos-13
-        - swift-version: "5.7"
-          xcode-version: "14.1"
-          runner: macos-13
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
