@@ -22,7 +22,8 @@ Swift client for [The Movie Database (TMDB) API](https://www.themoviedb.org/docu
 
 ## Requirements
 
-- Swift 5.10, 6.0, 6.1, or 6.2
+- Swift 5.9+ on Apple platforms
+- Swift 6.0+ on Linux
 - iOS 13.0+, macOS 10.15+, tvOS 13.0+, watchOS 6.0+
 
 ## Installation
