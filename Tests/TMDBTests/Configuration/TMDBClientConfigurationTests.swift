@@ -6,13 +6,13 @@ import Testing
   import FoundationNetworking
 #endif
 
-struct ClientConfigurationTests {
+struct TMDBClientConfigurationTests {
   @Test
   func configurationSuccess() async throws {
     // Setup
     let urlRequestStorage = TestStorage<URLRequest>()
     // Test
-    let client = Client(accessToken: "ABC123") {
+    let client = TMDBClient(accessToken: "ABC123") {
       await urlRequestStorage.setValue($0)
       return Response(data: .configuration, statusCode: 200)
     }
@@ -37,11 +37,11 @@ struct ClientConfigurationTests {
     // Setup
     let urlRequestStorage = TestStorage<URLRequest>()
     // Test
-    let client = Client(accessToken: "DEF456") {
+    let client = TMDBClient(accessToken: "DEF456") {
       await urlRequestStorage.setValue($0)
-      return Response(data: .errorContent, statusCode: 400)
+      return Response(data: .tmdbError, statusCode: 400)
     }
-    await #expect(throws: ErrorContent.self) {
+    await #expect(throws: TMDBError.self) {
       try await client.configuration()
     }
     // Verify
@@ -63,7 +63,7 @@ struct ClientConfigurationTests {
     struct TestError: Error {}
     let urlRequestStorage = TestStorage<URLRequest>()
     // Test
-    let client = Client(accessToken: "GHI789") {
+    let client = TMDBClient(accessToken: "GHI789") {
       await urlRequestStorage.setValue($0)
       throw TestError()
     }

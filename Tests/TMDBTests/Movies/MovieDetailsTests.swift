@@ -67,7 +67,8 @@ struct MovieDetailsTests {
       title: "Scooby-Doo",
       video: false,
       voteAverage: 6.1,
-      voteCount: 4561
+      voteCount: 4561,
+      similar: nil
     )
     #expect(movieDetails == expectedMovieDetails)
   }
@@ -106,8 +107,20 @@ struct MovieDetailsTests {
       title: "Home alone collection",
       video: false,
       voteAverage: 0,
-      voteCount: 0
+      voteCount: 0,
+      similar: nil
     )
     #expect(movieDetails == expectedMovieDetails)
+  }
+
+  @Test
+  func decodeMovieDetails3() async throws {
+    // Setup
+    let data = Data.movieDetails3
+    let decoder = JSONDecoder()
+    // Test
+    let movieDetails = try decoder.decode(MovieDetails.self, from: data)
+    // Verify
+    #expect(movieDetails.similar?.results.count == 20)
   }
 }

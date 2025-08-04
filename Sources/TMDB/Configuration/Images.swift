@@ -3,7 +3,7 @@ import Foundation
 public struct Images: Codable, Hashable, Sendable {
   public var baseURL: URL
   public var secureBaseURL: URL
-  public var backdropSizes: [String]
+  public var backdropSizes: [BackdropSize]
   public var logoSizes: [String]
   public var posterSizes: [PosterSize]
   public var profileSizes: [String]
@@ -12,7 +12,7 @@ public struct Images: Codable, Hashable, Sendable {
   public init(
     baseURL: URL,
     secureBaseURL: URL,
-    backdropSizes: [String],
+    backdropSizes: [BackdropSize],
     logoSizes: [String],
     posterSizes: [PosterSize],
     profileSizes: [String],

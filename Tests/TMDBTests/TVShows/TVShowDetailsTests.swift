@@ -59,7 +59,8 @@ struct TVShowDetailsTests {
       tagline: "The next best thing to being there.",
       type: "Scripted",
       voteAverage: 7.4,
-      voteCount: 2068
+      voteCount: 2068,
+      similar: nil
     )
     #expect(tvShowDetails == expectedTVShowDetails)
   }
@@ -98,8 +99,20 @@ struct TVShowDetailsTests {
       tagline: "",
       type: "Scripted",
       voteAverage: 0,
-      voteCount: 0
+      voteCount: 0,
+      similar: nil
     )
     #expect(tvShowDetails == expectedTVShowDetails)
+  }
+
+  @Test
+  func decodeTVShowDetails3() async throws {
+    // Setup
+    let data = Data.tvShowDetails3
+    let decoder = JSONDecoder()
+    // Test
+    let tvShowDetails = try decoder.decode(TVShowDetails.self, from: data)
+    // Verify
+    #expect(tvShowDetails.similar?.results.count == 20)
   }
 }

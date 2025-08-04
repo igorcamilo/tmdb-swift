@@ -1,6 +1,6 @@
 public struct MovieDetails: Codable, Hashable, Identifiable, Sendable {
   public var adult: Bool
-  public var backdropPath: String?
+  public var backdropPath: BackdropPath?
   public var belongsToCollection: MovieCollection?
   public var budget: Int
   public var genres: [Genre]
@@ -25,10 +25,11 @@ public struct MovieDetails: Codable, Hashable, Identifiable, Sendable {
   public var video: Bool
   public var voteAverage: Double
   public var voteCount: Int
+  public var similar: Page<Movie>?
 
   public init(
     adult: Bool,
-    backdropPath: String?,
+    backdropPath: BackdropPath?,
     belongsToCollection: MovieCollection?,
     budget: Int,
     genres: [Genre],
@@ -52,7 +53,8 @@ public struct MovieDetails: Codable, Hashable, Identifiable, Sendable {
     title: String,
     video: Bool,
     voteAverage: Double,
-    voteCount: Int
+    voteCount: Int,
+    similar: Page<Movie>?
   ) {
     self.adult = adult
     self.backdropPath = backdropPath
@@ -80,6 +82,7 @@ public struct MovieDetails: Codable, Hashable, Identifiable, Sendable {
     self.video = video
     self.voteAverage = voteAverage
     self.voteCount = voteCount
+    self.similar = similar
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -109,5 +112,6 @@ public struct MovieDetails: Codable, Hashable, Identifiable, Sendable {
     case video
     case voteAverage = "vote_average"
     case voteCount = "vote_count"
+    case similar
   }
 }

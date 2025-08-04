@@ -1,6 +1,6 @@
 public struct Movie: Codable, Hashable, Identifiable, Sendable {
   public var adult: Bool
-  public var backdropPath: String?
+  public var backdropPath: BackdropPath?
   public var genreIDs: [Genre.ID]?
   public var id: ID
   public var originalLanguage: String
@@ -16,7 +16,7 @@ public struct Movie: Codable, Hashable, Identifiable, Sendable {
 
   public init(
     adult: Bool,
-    backdropPath: String?,
+    backdropPath: BackdropPath?,
     genreIDs: [Genre.ID]?,
     id: ID,
     originalLanguage: String,

@@ -1,4 +1,4 @@
-public struct PageContent<T: Codable & Hashable & Sendable>: Codable, Hashable, Sendable {
+public struct Page<T: Codable & Hashable & Sendable>: Codable, Hashable, Sendable {
   public var page: Int
   public var results: [T]
   public var totalPages: Int

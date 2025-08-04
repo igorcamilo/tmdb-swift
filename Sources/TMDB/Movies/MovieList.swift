@@ -12,7 +12,7 @@ public enum MovieList: Codable, Hashable, Sendable {
   /// Trending movies on TMDB.
   case trending(TrendingTimeWindow)
 
-  var pathComponent: String {
+  var relativePath: String {
     switch self {
     case .nowPlaying:
       "movie/now_playing"

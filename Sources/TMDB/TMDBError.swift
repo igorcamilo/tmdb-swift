@@ -1,4 +1,4 @@
-public struct ErrorContent: Codable, Error, Hashable, Sendable {
+public struct TMDBError: Codable, Error, Hashable, Sendable {
   public var statusCode: Int
   public var statusMessage: String
   public var success: Bool

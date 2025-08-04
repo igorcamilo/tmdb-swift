@@ -6,13 +6,13 @@ import Testing
   import FoundationNetworking
 #endif
 
-struct ClientMovieTests {
+struct TMDBClientMovieTests {
   @Test
   func movieDetailsSuccess() async throws {
     // Setup
     let urlRequestStorage = TestStorage<URLRequest>()
     // Test
-    let client = Client(accessToken: "ABC123") {
+    let client = TMDBClient(accessToken: "ABC123") {
       await urlRequestStorage.setValue($0)
       return Response(data: .movieDetails1, statusCode: 200)
     }
@@ -21,7 +21,10 @@ struct ClientMovieTests {
     }
     // Verify
     let urlRequest = try #require(await urlRequestStorage.value)
-    #expect(urlRequest.url?.absoluteString == "https://api.themoviedb.org/3/movie/123")
+    let absoluteURLString = #"""
+      https://api.themoviedb.org/3/movie/123?append_to_response=similar
+      """#
+    #expect(urlRequest.url?.absoluteString == absoluteURLString)
     #expect(urlRequest.httpMethod == "GET")
     #expect(urlRequest.httpBody == nil)
     #expect(
@@ -37,12 +40,12 @@ struct ClientMovieTests {
     // Setup
     let urlRequestStorage = TestStorage<URLRequest>()
     // Test
-    let client = Client(accessToken: "DEF456") {
+    let client = TMDBClient(accessToken: "DEF456") {
       await urlRequestStorage.setValue($0)
-      return Response(data: .errorContent, statusCode: 400)
+      return Response(data: .tmdbError, statusCode: 400)
     }
-    await #expect(throws: ErrorContent.self) {
-      try await client.movieDetails(id: 456)
+    await #expect(throws: TMDBError.self) {
+      try await client.movieDetails(id: 456, appending: [])
     }
     // Verify
     let urlRequest = try #require(await urlRequestStorage.value)
@@ -86,7 +89,7 @@ struct ClientMovieTests {
       data = .trendingMovies
     }
     // Test
-    let client = Client(accessToken: "ABC123") {
+    let client = TMDBClient(accessToken: "ABC123") {
       await urlRequestStorage.setValue($0)
       return Response(data: data, statusCode: 200)
     }
@@ -111,11 +114,11 @@ struct ClientMovieTests {
     // Setup
     let urlRequestStorage = TestStorage<URLRequest>()
     // Test
-    let client = Client(accessToken: "DEF456") {
+    let client = TMDBClient(accessToken: "DEF456") {
       await urlRequestStorage.setValue($0)
-      return Response(data: .errorContent, statusCode: 400)
+      return Response(data: .tmdbError, statusCode: 400)
     }
-    await #expect(throws: ErrorContent.self) {
+    await #expect(throws: TMDBError.self) {
       try await client.movies(list: .trending(.week))
     }
     // Verify

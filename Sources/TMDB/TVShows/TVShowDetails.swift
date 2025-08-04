@@ -1,6 +1,6 @@
 public struct TVShowDetails: Codable, Hashable, Identifiable, Sendable {
   public var adult: Bool
-  public var backdropPath: String?
+  public var backdropPath: BackdropPath?
   // public var createdBy: [CreatedBy]
   // public var episodeRunTime: [Int]
   public var firstAirDate: String
@@ -31,10 +31,11 @@ public struct TVShowDetails: Codable, Hashable, Identifiable, Sendable {
   public var type: String
   public var voteAverage: Double
   public var voteCount: Int
+  public var similar: Page<TVShow>?
 
   public init(
     adult: Bool,
-    backdropPath: String?,
+    backdropPath: BackdropPath?,
     firstAirDate: String,
     genres: [Genre],
     homepage: String,
@@ -58,7 +59,8 @@ public struct TVShowDetails: Codable, Hashable, Identifiable, Sendable {
     tagline: String,
     type: String,
     voteAverage: Double,
-    voteCount: Int
+    voteCount: Int,
+    similar: Page<TVShow>?
   ) {
     self.adult = adult
     self.backdropPath = backdropPath
@@ -86,6 +88,7 @@ public struct TVShowDetails: Codable, Hashable, Identifiable, Sendable {
     self.type = type
     self.voteAverage = voteAverage
     self.voteCount = voteCount
+    self.similar = similar
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -115,5 +118,6 @@ public struct TVShowDetails: Codable, Hashable, Identifiable, Sendable {
     case type
     case voteAverage = "vote_average"
     case voteCount = "vote_count"
+    case similar
   }
 }

@@ -4,11 +4,11 @@ import Foundation
   import FoundationNetworking
 #endif
 
-private let defaultPerformRequest: Client.PerformRequest = { request in
+private let defaultPerformRequest: TMDBClient.PerformRequest = { request in
   try await Response(URLSession.shared.data(for: request))
 }
 
-public final class Client: Sendable {
+public final class TMDBClient: Sendable {
   public let accessToken: String
   public let performRequest: PerformRequest
 
@@ -22,12 +22,22 @@ public final class Client: Sendable {
     self.performRequest = performRequest ?? defaultPerformRequest
   }
 
-  func urlRequest() throws -> URLRequest {
+  func urlRequest(
+    relativePath: String,
+    queryItems: [String: String] = [:]
+  ) throws -> URLRequest {
     let baseURLString = "https://api.themoviedb.org/3/"
-    guard let baseURL = URL(string: baseURLString) else {
-      throw ClientError.invalidBaseURL(baseURLString)
+    var components = URLComponents(string: baseURLString)!
+    components.path.append(relativePath)
+    if !queryItems.isEmpty {
+      components.queryItems = queryItems.map {
+        URLQueryItem(name: $0.key, value: $0.value)
+      }
     }
-    var urlRequest = URLRequest(url: baseURL)
+    guard let url = components.url else {
+      throw TMDBClientError.invalidURL(components)
+    }
+    var urlRequest = URLRequest(url: url)
     urlRequest.allHTTPHeaderFields = [
       "Accept": "application/json",
       "Authorization": "Bearer \(accessToken)",
@@ -36,8 +46,4 @@ public final class Client: Sendable {
   }
 
   public typealias PerformRequest = @Sendable (URLRequest) async throws -> Response
-}
-
-public enum ClientError: Error {
-  case invalidBaseURL(String)
 }
