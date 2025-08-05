@@ -1,16 +1,22 @@
+import Foundation
+
+#if canImport(FoundationNetworking)
+  import FoundationNetworking
+#endif
+
 extension TMDBClient {
   public func movieDetails(
     id: Movie.ID,
     appending: [MovieDetailsAppendingOptions] = MovieDetailsAppendingOptions.allCases
   ) async throws -> MovieDetails {
-    var queryItems: [String: String] = [:]
+    var queryItems: [URLQueryItem] = []
     if !appending.isEmpty {
       let value = appending.map(\.rawValue).joined(separator: ",")
-      queryItems["append_to_response"] = value
+      queryItems.append(URLQueryItem(name: "append_to_response", value: value))
     }
     let urlRequest = try urlRequest(
       relativePath: "movie/\(id.rawValue)",
-      queryItems: queryItems
+      queryItems: queryItems.isEmpty ? nil : queryItems
     )
     let response = try await performRequest(urlRequest)
     if response.statusCode == 200 {

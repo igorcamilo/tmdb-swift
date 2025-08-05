@@ -24,16 +24,12 @@ public final class TMDBClient: Sendable {
 
   func urlRequest(
     relativePath: String,
-    queryItems: [String: String] = [:]
+    queryItems: [URLQueryItem]? = nil
   ) throws -> URLRequest {
     let baseURLString = "https://api.themoviedb.org/3/"
     var components = URLComponents(string: baseURLString)!
     components.path.append(relativePath)
-    if !queryItems.isEmpty {
-      components.queryItems = queryItems.map {
-        URLQueryItem(name: $0.key, value: $0.value)
-      }
-    }
+    components.queryItems = queryItems
     guard let url = components.url else {
       throw TMDBClientError.invalidURL(components)
     }
