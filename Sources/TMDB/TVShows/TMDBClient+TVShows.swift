@@ -12,7 +12,7 @@ extension TMDBClient {
     var queryItems: [URLQueryItem] = []
     if !appending.isEmpty {
       let value = appending.map(\.rawValue).joined(separator: ",")
-      queryItems.append(.init(name: "append_to_response", value: value))
+      queryItems.append(URLQueryItem(name: "append_to_response", value: value))
     }
     let urlRequest = try urlRequest(
       relativePath: "tv/\(id.rawValue)",
