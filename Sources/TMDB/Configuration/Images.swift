@@ -27,18 +27,8 @@ public struct Images: Codable, Hashable, Sendable {
     self.stillSizes = stillSizes
   }
 
-  public func size<T: ImageSize>(
+  public func size<T: RawRepresentable<String>>(
     width: CGFloat? = nil,
-    from list: KeyPath<Images, [T]>
-  ) -> T? {
-    size(
-      width: width.map { Int(ceil($0)) },
-      from: list
-    )
-  }
-
-  public func size<T: ImageSize>(
-    width: Int?,
     from list: KeyPath<Images, [T]>
   ) -> T? {
     guard let width else {
@@ -47,7 +37,7 @@ public struct Images: Codable, Hashable, Sendable {
     let size = self[keyPath: list].first {
       guard
         $0.rawValue.hasPrefix("w"),
-        let elementWidth = Int($0.rawValue.dropFirst())
+        let elementWidth = Double($0.rawValue.dropFirst())
       else {
         return false
       }
@@ -56,16 +46,25 @@ public struct Images: Codable, Hashable, Sendable {
     return size ?? self[keyPath: list].last
   }
 
-  public func url<T: ImageSize>(
-    size: T,
-    path: T.ImagePath?
+  public func url<T: ImagePath>(
+    size: T.ImageSize,
+    path: T
   ) -> URL? {
-    guard let path else {
-      return nil
-    }
     return secureBaseURL.appendingPathComponent(
       size.rawValue + path.rawValue
     )
+  }
+
+  public func url<T: ImagePath>(
+    width: CGFloat? = nil,
+    path: T
+  ) -> URL? {
+    guard
+      let size = size(width: width, from: T.keyPath)
+    else {
+      return nil
+    }
+    return url(size: size, path: path)
   }
 
   private enum CodingKeys: String, CodingKey {

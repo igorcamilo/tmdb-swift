@@ -5,108 +5,35 @@ import Testing
 struct ImagesTests {
   @Test(
     arguments: [
-      (100.0, "w122"),
-      (122.001, "w123"),
-      (123.0, "w123"),
-      (123.999, "w124"),
-      (124.0, "w124"),
-      (800.0, "xyz"),
-      (1000.0, "xyz"),
-      (nil, "xyz"),
+      (100.0, "/123.jpg", "https://kinova.co/w122/123.jpg"),
+      (122.001, "/456.jpg", "https://kinova.co/w123/456.jpg"),
+      (123.0, "/789.jpg", "https://kinova.co/w123/789.jpg"),
+      (123.999, "/123.svg", "https://kinova.co/w124/123.svg"),
+      (124.0, "/123.jpg", "https://kinova.co/w124/123.jpg"),
+      (800.0, "/456.jpg", "https://kinova.co/xyz/456.jpg"),
+      (1000.0, "/789.jpg", "https://kinova.co/xyz/789.jpg"),
+      (nil, "/123.svg", "https://kinova.co/xyz/123.svg"),
     ]
   )
-  func backdropSize(width: CGFloat?, expectedSize: BackdropSize) async throws {
+  func backdropURL(width: CGFloat?, path: BackdropPath, expectedURL: String) throws {
     // Setup
-    let allSizes: [BackdropSize] = ["abc", "w122", "h123", "w123", "w124", "xyz"]
     let images = try Images(
       baseURL: #require(URL(string: "https://kinova.co/")),
       secureBaseURL: #require(URL(string: "https://kinova.co/")),
-      backdropSizes: allSizes,
+      backdropSizes: ["abc", "w122", "h123", "w123", "w124", "xyz"],
       logoSizes: [],
       posterSizes: [],
       profileSizes: [],
       stillSizes: []
     )
     // Test
-    let size = images.size(
-      width: width,
-      from: \.backdropSizes
-    )
-    // Verify
-    #expect(size == expectedSize)
-  }
-
-  @Test(
-    arguments: [
-      (100.0, "w122"),
-      (122.001, "w123"),
-      (123.0, "w123"),
-      (123.999, "w124"),
-      (124.0, "w124"),
-      (800.0, "xyz"),
-      (1000.0, "xyz"),
-      (nil, "xyz"),
-    ]
-  )
-  func posterSize(width: CGFloat?, expectedSize: PosterSize) async throws {
-    // Setup
-    let allSizes: [PosterSize] = ["abc", "w122", "h123", "w123", "w124", "xyz"]
-    let images = try Images(
-      baseURL: #require(URL(string: "https://kinova.co/")),
-      secureBaseURL: #require(URL(string: "https://kinova.co/")),
-      backdropSizes: [],
-      logoSizes: [],
-      posterSizes: allSizes,
-      profileSizes: [],
-      stillSizes: []
-    )
-    // Test
-    let size = images.size(
-      width: width,
-      from: \.posterSizes
-    )
-    // Verify
-    #expect(size == expectedSize)
-  }
-
-  @Test(
-    arguments: [
-      ("w122", "/123.jpg", "https://kinova.co/w122/123.jpg"),
-      ("w123", "/123.jpg", "https://kinova.co/w123/123.jpg"),
-      ("w124", "/123.jpg", "https://kinova.co/w124/123.jpg"),
-      ("xyz", "/123.jpg", "https://kinova.co/xyz/123.jpg"),
-      ("w124", nil, nil),
-      ("xyz", nil, nil),
-    ]
-  )
-  func backdropURL(size: BackdropSize, path: BackdropPath?, expectedURL: String?) async throws {
-    // Setup
-    let images = try Images(
-      baseURL: #require(URL(string: "https://kinova.co/")),
-      secureBaseURL: #require(URL(string: "https://kinova.co/")),
-      backdropSizes: [],
-      logoSizes: [],
-      posterSizes: [],
-      profileSizes: [],
-      stillSizes: []
-    )
-    // Test
-    let url = images.url(size: size, path: path)
+    let url = images.url(width: width, path: path)
     // Verify
     #expect(url?.absoluteString == expectedURL)
   }
 
-  @Test(
-    arguments: [
-      ("w122", "/123.jpg", "https://kinova.co/w122/123.jpg"),
-      ("w123", "/123.jpg", "https://kinova.co/w123/123.jpg"),
-      ("w124", "/123.jpg", "https://kinova.co/w124/123.jpg"),
-      ("xyz", "/123.jpg", "https://kinova.co/xyz/123.jpg"),
-      ("w124", nil, nil),
-      ("xyz", nil, nil),
-    ]
-  )
-  func posterURL(size: PosterSize, path: PosterPath?, expectedURL: String?) async throws {
+  @Test
+  func backdropNoURL() throws {
     // Setup
     let images = try Images(
       baseURL: #require(URL(string: "https://kinova.co/")),
@@ -118,8 +45,55 @@ struct ImagesTests {
       stillSizes: []
     )
     // Test
-    let url = images.url(size: size, path: path)
+    let url = images.url(path: "/123.jpg" as BackdropPath)
+    // Verify
+    #expect(url == nil)
+  }
+
+  @Test(
+    arguments: [
+      (100.0, "/123.jpg", "https://kinova.co/w122/123.jpg"),
+      (122.001, "/456.jpg", "https://kinova.co/w123/456.jpg"),
+      (123.0, "/789.jpg", "https://kinova.co/w123/789.jpg"),
+      (123.999, "/123.svg", "https://kinova.co/w124/123.svg"),
+      (124.0, "/123.jpg", "https://kinova.co/w124/123.jpg"),
+      (800.0, "/456.jpg", "https://kinova.co/xyz/456.jpg"),
+      (1000.0, "/789.jpg", "https://kinova.co/xyz/789.jpg"),
+      (nil, "/123.svg", "https://kinova.co/xyz/123.svg"),
+    ]
+  )
+  func posterURL(width: CGFloat?, path: PosterPath, expectedURL: String) async throws {
+    // Setup
+    let images = try Images(
+      baseURL: #require(URL(string: "https://kinova.co/")),
+      secureBaseURL: #require(URL(string: "https://kinova.co/")),
+      backdropSizes: [],
+      logoSizes: [],
+      posterSizes: ["abc", "w122", "h123", "w123", "w124", "xyz"],
+      profileSizes: [],
+      stillSizes: []
+    )
+    // Test
+    let url = images.url(width: width, path: path)
     // Verify
     #expect(url?.absoluteString == expectedURL)
+  }
+
+  @Test
+  func posterNoURL() throws {
+    // Setup
+    let images = try Images(
+      baseURL: #require(URL(string: "https://kinova.co/")),
+      secureBaseURL: #require(URL(string: "https://kinova.co/")),
+      backdropSizes: [],
+      logoSizes: [],
+      posterSizes: [],
+      profileSizes: [],
+      stillSizes: []
+    )
+    // Test
+    let url = images.url(path: "/123.jpg" as PosterPath)
+    // Verify
+    #expect(url == nil)
   }
 }
