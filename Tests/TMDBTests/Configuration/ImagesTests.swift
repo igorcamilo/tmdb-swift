@@ -75,11 +75,9 @@ struct ImagesTests {
       ("w123", "/123.jpg", "https://kinova.co/w123/123.jpg"),
       ("w124", "/123.jpg", "https://kinova.co/w124/123.jpg"),
       ("xyz", "/123.jpg", "https://kinova.co/xyz/123.jpg"),
-      ("w124", nil, nil),
-      ("xyz", nil, nil),
     ]
   )
-  func backdropURL(size: BackdropSize, path: BackdropPath?, expectedURL: String?) async throws {
+  func backdropURL(size: BackdropSize, path: BackdropPath, expectedURL: String) async throws {
     // Setup
     let images = try Images(
       baseURL: #require(URL(string: "https://kinova.co/")),
@@ -102,11 +100,9 @@ struct ImagesTests {
       ("w123", "/123.jpg", "https://kinova.co/w123/123.jpg"),
       ("w124", "/123.jpg", "https://kinova.co/w124/123.jpg"),
       ("xyz", "/123.jpg", "https://kinova.co/xyz/123.jpg"),
-      ("w124", nil, nil),
-      ("xyz", nil, nil),
     ]
   )
-  func posterURL(size: PosterSize, path: PosterPath?, expectedURL: String?) async throws {
+  func posterURL(size: PosterSize, path: PosterPath, expectedURL: String) async throws {
     // Setup
     let images = try Images(
       baseURL: #require(URL(string: "https://kinova.co/")),

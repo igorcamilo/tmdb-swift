@@ -1,4 +1,8 @@
-public struct PosterPath: Codable, Hashable, RawRepresentable, Sendable {
+public struct PosterPath: Codable, Hashable, ImagePath, Sendable {
+  public static var keyPath: KeyPath<Images, [PosterSize]> {
+    \.posterSizes
+  }
+
   public var rawValue: String
 
   public init(rawValue: String) {

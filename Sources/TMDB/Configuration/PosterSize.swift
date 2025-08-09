@@ -1,6 +1,4 @@
-public struct PosterSize: Codable, Hashable, ImageSize, Sendable {
-  public typealias ImagePath = PosterPath
-
+public struct PosterSize: Codable, Hashable, RawRepresentable, Sendable {
   public var rawValue: String
 
   public init(rawValue: String) {

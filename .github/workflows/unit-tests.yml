@@ -62,6 +62,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
+        - swift-version: "6.2"
+          xcode-version: "26.0"
+          runner: macos-15
         - swift-version: "6.1"
           xcode-version: "16.3"
           runner: macos-15
@@ -94,6 +97,7 @@ jobs:
       fail-fast: false
       matrix:
         swift-version:
+        - "6.2-snapshot"
         - "6.1"
         - "6.0"
     steps:

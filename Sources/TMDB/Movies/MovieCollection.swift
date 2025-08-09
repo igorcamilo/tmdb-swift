@@ -2,13 +2,13 @@ public struct MovieCollection: Codable, Hashable, Identifiable, Sendable {
   public var id: ID
   public var name: String
   public var posterPath: PosterPath?
-  public var backdropPath: String?
+  public var backdropPath: BackdropPath?
 
   public init(
     id: ID,
     name: String,
     posterPath: PosterPath?,
-    backdropPath: String?
+    backdropPath: BackdropPath?
   ) {
     self.id = id
     self.name = name
