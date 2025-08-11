@@ -55,7 +55,7 @@ struct MovieDetailsTests {
     #expect(movieDetails.budget == 0)
     #expect(movieDetails.genres.count == 0)
     #expect(movieDetails.homepage == "")
-    #expect(movieDetails.id == 1524528)
+    #expect(movieDetails.id == 1_524_528)
     #expect(movieDetails.imdbID == nil)
     #expect(movieDetails.originCountry?.count == 1)
     #expect(movieDetails.originalLanguage == "nl")
