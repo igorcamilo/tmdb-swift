@@ -9,7 +9,9 @@ public struct Images: Codable, Hashable, Sendable {
   public var profileSizes: [String] = []
   public var stillSizes: [String] = []
 
-  public init() {}
+  public init() {
+    // Makes initializer public
+  }
 
   public func size<T: RawRepresentable<String>>(
     width: Double? = nil,
