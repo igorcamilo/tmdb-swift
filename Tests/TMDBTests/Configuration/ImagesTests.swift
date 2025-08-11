@@ -35,14 +35,14 @@ struct ImagesTests {
     var images = Images()
     images.backdropSizes = ["abc"]
     // Test
-    let url = images.url(path: "/123.jpg" as BackdropPath)
+    let url = images.url(path: "/123.png" as BackdropPath)
     // Verify
     #expect(url == nil)
   }
 
   @Test func backdropNoPath() {
     // Test
-    let url = testImages.url(path: "/123.jpg" as BackdropPath)
+    let url = testImages.url(path: "/123.svg" as BackdropPath)
     // Verify
     #expect(url == nil)
   }
@@ -74,14 +74,14 @@ struct ImagesTests {
     var images = Images()
     images.posterSizes = ["abc"]
     // Test
-    let url = images.url(path: "/123.jpg" as PosterPath)
+    let url = images.url(path: "/456.png" as PosterPath)
     // Verify
     #expect(url == nil)
   }
 
   @Test func posterNoPath() {
     // Test
-    let url = testImages.url(path: "/123.jpg" as PosterPath)
+    let url = testImages.url(path: "/456.svg" as PosterPath)
     // Verify
     #expect(url == nil)
   }
