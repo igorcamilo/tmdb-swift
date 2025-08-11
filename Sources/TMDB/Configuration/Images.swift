@@ -1,34 +1,18 @@
 import Foundation
 
 public struct Images: Codable, Hashable, Sendable {
-  public var baseURL: URL
-  public var secureBaseURL: URL
-  public var backdropSizes: [BackdropSize]
-  public var logoSizes: [String]
-  public var posterSizes: [PosterSize]
-  public var profileSizes: [String]
-  public var stillSizes: [String]
+  public var baseURL = ""
+  public var secureBaseURL = ""
+  public var backdropSizes: [BackdropSize] = []
+  public var logoSizes: [String] = []
+  public var posterSizes: [PosterSize] = []
+  public var profileSizes: [String] = []
+  public var stillSizes: [String] = []
 
-  public init(
-    baseURL: URL,
-    secureBaseURL: URL,
-    backdropSizes: [BackdropSize],
-    logoSizes: [String],
-    posterSizes: [PosterSize],
-    profileSizes: [String],
-    stillSizes: [String]
-  ) {
-    self.baseURL = baseURL
-    self.secureBaseURL = secureBaseURL
-    self.backdropSizes = backdropSizes
-    self.logoSizes = logoSizes
-    self.posterSizes = posterSizes
-    self.profileSizes = profileSizes
-    self.stillSizes = stillSizes
-  }
+  public init() {}
 
   public func size<T: RawRepresentable<String>>(
-    width: CGFloat? = nil,
+    width: Double? = nil,
     from list: KeyPath<Images, [T]>
   ) -> T? {
     guard let width else {
@@ -50,13 +34,18 @@ public struct Images: Codable, Hashable, Sendable {
     size: T.ImageSize,
     path: T
   ) -> URL? {
-    return secureBaseURL.appendingPathComponent(
+    guard
+      let url = URL(string: secureBaseURL)
+    else {
+      return nil
+    }
+    return url.appendingPathComponent(
       size.rawValue + path.rawValue
     )
   }
 
   public func url<T: ImagePath>(
-    width: CGFloat? = nil,
+    width: Double? = nil,
     path: T
   ) -> URL? {
     guard

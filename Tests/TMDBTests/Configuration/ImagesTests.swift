@@ -1,8 +1,13 @@
-import Foundation
 import TMDB
 import Testing
 
 struct ImagesTests {
+  private var testImages: Images {
+    var images = Images()
+    images.secureBaseURL = "https://kinova.co/"
+    return images
+  }
+
   @Test(
     arguments: [
       (100.0, "/123.jpg", "https://kinova.co/w122/123.jpg"),
@@ -15,37 +20,29 @@ struct ImagesTests {
       (nil, "/123.svg", "https://kinova.co/xyz/123.svg"),
     ]
   )
-  func backdropURL(width: CGFloat?, path: BackdropPath, expectedURL: String) throws {
+  func backdropURL(width: Double?, path: BackdropPath, expectedURL: String) {
     // Setup
-    let images = try Images(
-      baseURL: #require(URL(string: "https://kinova.co/")),
-      secureBaseURL: #require(URL(string: "https://kinova.co/")),
-      backdropSizes: ["abc", "w122", "h123", "w123", "w124", "xyz"],
-      logoSizes: [],
-      posterSizes: [],
-      profileSizes: [],
-      stillSizes: []
-    )
+    var images = testImages
+    images.backdropSizes = ["abc", "w122", "h123", "w123", "w124", "xyz"]
     // Test
     let url = images.url(width: width, path: path)
     // Verify
     #expect(url?.absoluteString == expectedURL)
   }
 
-  @Test
-  func backdropNoURL() throws {
+  @Test func backdropNoURL() {
     // Setup
-    let images = try Images(
-      baseURL: #require(URL(string: "https://kinova.co/")),
-      secureBaseURL: #require(URL(string: "https://kinova.co/")),
-      backdropSizes: [],
-      logoSizes: [],
-      posterSizes: [],
-      profileSizes: [],
-      stillSizes: []
-    )
+    var images = Images()
+    images.backdropSizes = ["abc"]
     // Test
     let url = images.url(path: "/123.jpg" as BackdropPath)
+    // Verify
+    #expect(url == nil)
+  }
+
+  @Test func backdropNoPath() {
+    // Test
+    let url = testImages.url(path: "/123.jpg" as BackdropPath)
     // Verify
     #expect(url == nil)
   }
@@ -62,37 +59,29 @@ struct ImagesTests {
       (nil, "/123.svg", "https://kinova.co/xyz/123.svg"),
     ]
   )
-  func posterURL(width: CGFloat?, path: PosterPath, expectedURL: String) async throws {
+  func posterURL(width: Double?, path: PosterPath, expectedURL: String) {
     // Setup
-    let images = try Images(
-      baseURL: #require(URL(string: "https://kinova.co/")),
-      secureBaseURL: #require(URL(string: "https://kinova.co/")),
-      backdropSizes: [],
-      logoSizes: [],
-      posterSizes: ["abc", "w122", "h123", "w123", "w124", "xyz"],
-      profileSizes: [],
-      stillSizes: []
-    )
+    var images = testImages
+    images.posterSizes = ["abc", "w122", "h123", "w123", "w124", "xyz"]
     // Test
     let url = images.url(width: width, path: path)
     // Verify
     #expect(url?.absoluteString == expectedURL)
   }
 
-  @Test
-  func posterNoURL() throws {
+  @Test func posterNoURL() {
     // Setup
-    let images = try Images(
-      baseURL: #require(URL(string: "https://kinova.co/")),
-      secureBaseURL: #require(URL(string: "https://kinova.co/")),
-      backdropSizes: [],
-      logoSizes: [],
-      posterSizes: [],
-      profileSizes: [],
-      stillSizes: []
-    )
+    var images = Images()
+    images.posterSizes = ["abc"]
     // Test
     let url = images.url(path: "/123.jpg" as PosterPath)
+    // Verify
+    #expect(url == nil)
+  }
+
+  @Test func posterNoPath() {
+    // Test
+    let url = testImages.url(path: "/123.jpg" as PosterPath)
     // Verify
     #expect(url == nil)
   }
