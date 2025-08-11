@@ -1,7 +1,7 @@
 import Foundation
 
 extension Data {
-  static let tvShowDetails2 = Data(content.utf8)
+  static let tvShowDetailsMinimal = Data(content.utf8)
 }
 
 private let content = #"""

@@ -1,7 +1,7 @@
 import Foundation
 
 extension Data {
-  static let movieDetails3 = Data(content.utf8)
+  static let movieDetailsComplete = Data(content.utf8)
 }
 
 private let content = #"""
@@ -76,6 +76,50 @@ private let content = #"""
     "video": false,
     "vote_average": 6.092,
     "vote_count": 4562,
+    "keywords": {
+      "keywords": [
+        {
+          "id": 3392,
+          "name": "voodoo"
+        },
+        {
+          "id": 703,
+          "name": "detective"
+        },
+        {
+          "id": 11478,
+          "name": "talking dog"
+        },
+        {
+          "id": 10244,
+          "name": "based on cartoon"
+        },
+        {
+          "id": 10793,
+          "name": "resort"
+        },
+        {
+          "id": 157241,
+          "name": "criminal investigation"
+        },
+        {
+          "id": 158340,
+          "name": "theme park"
+        },
+        {
+          "id": 164246,
+          "name": "nostalgic"
+        },
+        {
+          "id": 179431,
+          "name": "duringcreditsstinger"
+        },
+        {
+          "id": 209220,
+          "name": "live action and animation"
+        }
+      ]
+    },
     "similar": {
       "page": 1,
       "results": [
@@ -485,4 +529,4 @@ private let content = #"""
       "total_results": 201033
     }
   }
-  """#
+"""#

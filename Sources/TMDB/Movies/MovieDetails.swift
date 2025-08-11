@@ -1,88 +1,43 @@
 public struct MovieDetails: Codable, Hashable, Identifiable, Sendable {
-  public var adult: Bool
+  public var adult = false
   public var backdropPath: BackdropPath?
   public var belongsToCollection: MovieCollection?
-  public var budget: Int
-  public var genres: [Genre]
+  public var budget = 0
+  public var genres: [Genre] = []
   public var homepage: String?
-  public var id: Movie.ID
+  public var id: Movie.ID = 0
   public var imdbID: String?
   public var originCountry: [String]?
-  public var originalLanguage: String
-  public var originalTitle: String
-  public var overview: String
-  public var popularity: Double
+  public var originalLanguage = ""
+  public var originalTitle = ""
+  public var overview = ""
+  public var popularity = 0.0
   public var posterPath: PosterPath?
-  public var productionCompanies: [ProductionCompany]
-  public var productionCountries: [Country]
-  public var releaseDate: String
-  public var revenue: Int
-  public var runtime: Int
-  public var spokenLanguages: [Language]
-  public var status: String
-  public var tagline: String
-  public var title: String
-  public var video: Bool
-  public var voteAverage: Double
-  public var voteCount: Int
+  public var productionCompanies: [ProductionCompany] = []
+  public var productionCountries: [Country] = []
+  public var releaseDate = ""
+  public var revenue = 0
+  public var runtime = 0
+  public var spokenLanguages: [Language] = []
+  public var status = ""
+  public var tagline = ""
+  public var title = ""
+  public var video = false
+  public var voteAverage = 0.0
+  public var voteCount = 0
+  public var keywords: Keywords?
   public var similar: Page<Movie>?
 
-  public init(
-    adult: Bool,
-    backdropPath: BackdropPath?,
-    belongsToCollection: MovieCollection?,
-    budget: Int,
-    genres: [Genre],
-    homepage: String?,
-    id: Movie.ID,
-    imdbID: String?,
-    originCountry: [String]?,
-    originalLanguage: String,
-    originalTitle: String,
-    overview: String,
-    popularity: Double,
-    posterPath: PosterPath?,
-    productionCompanies: [ProductionCompany],
-    productionCountries: [Country],
-    releaseDate: String,
-    revenue: Int,
-    runtime: Int,
-    spokenLanguages: [Language],
-    status: String,
-    tagline: String,
-    title: String,
-    video: Bool,
-    voteAverage: Double,
-    voteCount: Int,
-    similar: Page<Movie>?
-  ) {
-    self.adult = adult
-    self.backdropPath = backdropPath
-    self.belongsToCollection = belongsToCollection
-    self.budget = budget
-    self.genres = genres
-    self.homepage = homepage
-    self.id = id
-    self.imdbID = imdbID
-    self.originCountry = originCountry
-    self.originalLanguage = originalLanguage
-    self.originalTitle = originalTitle
-    self.overview = overview
-    self.popularity = popularity
-    self.posterPath = posterPath
-    self.productionCompanies = productionCompanies
-    self.productionCountries = productionCountries
-    self.releaseDate = releaseDate
-    self.revenue = revenue
-    self.runtime = runtime
-    self.spokenLanguages = spokenLanguages
-    self.status = status
-    self.tagline = tagline
-    self.title = title
-    self.video = video
-    self.voteAverage = voteAverage
-    self.voteCount = voteCount
-    self.similar = similar
+  public init() {
+    // Makes initializer public
+  }
+
+  public struct Keywords: Codable, Hashable, Sendable {
+    public var keywords: [Keyword] = []
+
+    public init() {
+      // Makes initializer public
+    }
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -112,6 +67,7 @@ public struct MovieDetails: Codable, Hashable, Identifiable, Sendable {
     case video
     case voteAverage = "vote_average"
     case voteCount = "vote_count"
+    case keywords
     case similar
   }
 }

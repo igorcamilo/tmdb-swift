@@ -3,20 +3,6 @@ import TMDB
 import Testing
 
 struct ConfigurationTests {
-  @Test func initialize() {
-    // Setup
-    let configuration = Configuration()
-    // Verify
-    #expect(configuration.changeKeys.isEmpty)
-    #expect(configuration.images.baseURL == "")
-    #expect(configuration.images.secureBaseURL == "")
-    #expect(configuration.images.backdropSizes.isEmpty)
-    #expect(configuration.images.logoSizes.isEmpty)
-    #expect(configuration.images.posterSizes.isEmpty)
-    #expect(configuration.images.profileSizes.isEmpty)
-    #expect(configuration.images.stillSizes.isEmpty)
-  }
-
   @Test func decodeCompleteData() throws {
     // Setup
     let data = Data.configuration

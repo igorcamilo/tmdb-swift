@@ -1,4 +1,4 @@
-public struct Genre: Codable, Hashable, Identifiable, Sendable {
+public struct Keyword: Codable, Hashable, Identifiable, Sendable {
   public var id: ID = 0
   public var name = ""
 
@@ -15,7 +15,7 @@ public struct Genre: Codable, Hashable, Identifiable, Sendable {
   }
 }
 
-extension Genre.ID: ExpressibleByIntegerLiteral {
+extension Keyword.ID: ExpressibleByIntegerLiteral {
   public init(integerLiteral value: Int) {
     self.rawValue = value
   }

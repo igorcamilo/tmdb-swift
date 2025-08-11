@@ -1,94 +1,49 @@
 public struct TVShowDetails: Codable, Hashable, Identifiable, Sendable {
-  public var adult: Bool
+  public var adult = false
   public var backdropPath: BackdropPath?
   // public var createdBy: [CreatedBy]
   // public var episodeRunTime: [Int]
-  public var firstAirDate: String
-  public var genres: [Genre]
-  public var homepage: String
-  public var id: TVShow.ID
-  public var inProduction: Bool
-  public var languages: [String]
+  public var firstAirDate = ""
+  public var genres: [Genre] = []
+  public var homepage = ""
+  public var id: TVShow.ID = 0
+  public var inProduction = false
+  public var languages: [String] = []
   public var lastAirDate: String?
   // public var lastEpisodeToAir: Episode?
-  public var name: String
+  public var name = ""
   // public var nextEpisodeToAir: Episode?
   // public var networks: [Network]
   public var numberOfEpisodes: Int?
-  public var numberOfSeasons: Int
-  public var originCountry: [String]
-  public var originalLanguage: String
-  public var originalName: String
-  public var overview: String
-  public var popularity: Double
+  public var numberOfSeasons = 0
+  public var originCountry: [String] = []
+  public var originalLanguage = ""
+  public var originalName = ""
+  public var overview = ""
+  public var popularity = 0.0
   public var posterPath: PosterPath?
-  public var productionCompanies: [ProductionCompany]
-  public var productionCountries: [Country]
+  public var productionCompanies: [ProductionCompany] = []
+  public var productionCountries: [Country] = []
   // public var seasons: [Season]
-  public var spokenLanguages: [Language]
-  public var status: String
-  public var tagline: String
-  public var type: String
-  public var voteAverage: Double
-  public var voteCount: Int
+  public var spokenLanguages: [Language] = []
+  public var status = ""
+  public var tagline = ""
+  public var type = ""
+  public var voteAverage = 0.0
+  public var voteCount = 0
+  public var keywords: Keywords?
   public var similar: Page<TVShow>?
 
-  public init(
-    adult: Bool,
-    backdropPath: BackdropPath?,
-    firstAirDate: String,
-    genres: [Genre],
-    homepage: String,
-    id: TVShow.ID,
-    inProduction: Bool,
-    languages: [String],
-    lastAirDate: String?,
-    name: String,
-    numberOfEpisodes: Int?,
-    numberOfSeasons: Int,
-    originCountry: [String],
-    originalLanguage: String,
-    originalName: String,
-    overview: String,
-    popularity: Double,
-    posterPath: PosterPath?,
-    productionCompanies: [ProductionCompany],
-    productionCountries: [Country],
-    spokenLanguages: [Language],
-    status: String,
-    tagline: String,
-    type: String,
-    voteAverage: Double,
-    voteCount: Int,
-    similar: Page<TVShow>?
-  ) {
-    self.adult = adult
-    self.backdropPath = backdropPath
-    self.firstAirDate = firstAirDate
-    self.genres = genres
-    self.homepage = homepage
-    self.id = id
-    self.inProduction = inProduction
-    self.languages = languages
-    self.lastAirDate = lastAirDate
-    self.name = name
-    self.numberOfEpisodes = numberOfEpisodes
-    self.numberOfSeasons = numberOfSeasons
-    self.originCountry = originCountry
-    self.originalLanguage = originalLanguage
-    self.originalName = originalName
-    self.overview = overview
-    self.popularity = popularity
-    self.posterPath = posterPath
-    self.productionCompanies = productionCompanies
-    self.productionCountries = productionCountries
-    self.spokenLanguages = spokenLanguages
-    self.status = status
-    self.tagline = tagline
-    self.type = type
-    self.voteAverage = voteAverage
-    self.voteCount = voteCount
-    self.similar = similar
+  public init() {
+    // Makes initializer public
+  }
+
+  public struct Keywords: Codable, Hashable, Sendable {
+    public var results: [Keyword] = []
+
+    public init() {
+      // Makes initializer public
+    }
   }
 
   private enum CodingKeys: String, CodingKey {
@@ -118,6 +73,7 @@ public struct TVShowDetails: Codable, Hashable, Identifiable, Sendable {
     case type
     case voteAverage = "vote_average"
     case voteCount = "vote_count"
+    case keywords
     case similar
   }
 }

@@ -1,7 +1,7 @@
 import Foundation
 
 extension Data {
-  static let tvShowDetails3 = Data(content.utf8)
+  static let tvShowDetailsComplete = Data(content.utf8)
 }
 
 private let content = #"""
@@ -176,6 +176,42 @@ private let content = #"""
     "type": "Scripted",
     "vote_average": 7.387,
     "vote_count": 2070,
+    "keywords": {
+      "results": [
+        {
+          "name": "new york city",
+          "id": 242
+        },
+        {
+          "name": "beauty",
+          "id": 3258
+        },
+        {
+          "name": "female friendship",
+          "id": 5248
+        },
+        {
+          "name": "love",
+          "id": 9673
+        },
+        {
+          "name": "dating",
+          "id": 13043
+        },
+        {
+          "name": "newspaper reporter",
+          "id": 163098
+        },
+        {
+          "name": "manhattan, new york city",
+          "id": 168346
+        },
+        {
+          "name": "sitcom",
+          "id": 193171
+        }
+      ]
+    },
     "similar": {
       "page": 1,
       "results": [
