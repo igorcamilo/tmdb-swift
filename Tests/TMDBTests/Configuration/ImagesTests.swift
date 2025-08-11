@@ -4,20 +4,20 @@ import Testing
 struct ImagesTests {
   private var testImages: Images {
     var images = Images()
-    images.secureBaseURL = "https://kinova.co/"
+    images.secureBaseURL = "https://kinova.igorcamilo.com/"
     return images
   }
 
   @Test(
     arguments: [
-      (100.0, "/123.jpg", "https://kinova.co/w122/123.jpg"),
-      (122.001, "/456.jpg", "https://kinova.co/w123/456.jpg"),
-      (123.0, "/789.jpg", "https://kinova.co/w123/789.jpg"),
-      (123.999, "/123.svg", "https://kinova.co/w124/123.svg"),
-      (124.0, "/123.jpg", "https://kinova.co/w124/123.jpg"),
-      (800.0, "/456.jpg", "https://kinova.co/xyz/456.jpg"),
-      (1000.0, "/789.jpg", "https://kinova.co/xyz/789.jpg"),
-      (nil, "/123.svg", "https://kinova.co/xyz/123.svg"),
+      (100.0, "/123.jpg", "https://kinova.igorcamilo.com/w122/123.jpg"),
+      (122.001, "/456.jpg", "https://kinova.igorcamilo.com/w123/456.jpg"),
+      (123.0, "/789.jpg", "https://kinova.igorcamilo.com/w123/789.jpg"),
+      (123.999, "/123.svg", "https://kinova.igorcamilo.com/w124/123.svg"),
+      (124.0, "/123.jpg", "https://kinova.igorcamilo.com/w124/123.jpg"),
+      (800.0, "/456.jpg", "https://kinova.igorcamilo.com/xyz/456.jpg"),
+      (1000.0, "/789.jpg", "https://kinova.igorcamilo.com/xyz/789.jpg"),
+      (nil, "/123.svg", "https://kinova.igorcamilo.com/xyz/123.svg"),
     ]
   )
   func backdropURL(width: Double?, path: BackdropPath, expectedURL: String) {
@@ -49,14 +49,14 @@ struct ImagesTests {
 
   @Test(
     arguments: [
-      (100.0, "/123.jpg", "https://kinova.co/w122/123.jpg"),
-      (122.001, "/456.jpg", "https://kinova.co/w123/456.jpg"),
-      (123.0, "/789.jpg", "https://kinova.co/w123/789.jpg"),
-      (123.999, "/123.svg", "https://kinova.co/w124/123.svg"),
-      (124.0, "/123.jpg", "https://kinova.co/w124/123.jpg"),
-      (800.0, "/456.jpg", "https://kinova.co/xyz/456.jpg"),
-      (1000.0, "/789.jpg", "https://kinova.co/xyz/789.jpg"),
-      (nil, "/123.svg", "https://kinova.co/xyz/123.svg"),
+      (100.0, "/123.jpg", "https://kinova.igorcamilo.com/w122/123.jpg"),
+      (122.001, "/456.jpg", "https://kinova.igorcamilo.com/w123/456.jpg"),
+      (123.0, "/789.jpg", "https://kinova.igorcamilo.com/w123/789.jpg"),
+      (123.999, "/123.svg", "https://kinova.igorcamilo.com/w124/123.svg"),
+      (124.0, "/123.jpg", "https://kinova.igorcamilo.com/w124/123.jpg"),
+      (800.0, "/456.jpg", "https://kinova.igorcamilo.com/xyz/456.jpg"),
+      (1000.0, "/789.jpg", "https://kinova.igorcamilo.com/xyz/789.jpg"),
+      (nil, "/123.svg", "https://kinova.igorcamilo.com/xyz/123.svg"),
     ]
   )
   func posterURL(width: Double?, path: PosterPath, expectedURL: String) {
