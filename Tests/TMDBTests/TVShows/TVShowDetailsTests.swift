@@ -4,115 +4,78 @@ import Testing
 
 struct TVShowDetailsTests {
   @Test
-  func decodeTVShowDetails1() async throws {
+  func decodeCompleteData() async throws {
     // Setup
-    let data = Data.tvShowDetails1
+    let data = Data.tvShowDetailsComplete
     let decoder = JSONDecoder()
     // Test
     let tvShowDetails = try decoder.decode(TVShowDetails.self, from: data)
     // Verify
-    let expectedTVShowDetails = TVShowDetails(
-      adult: false,
-      backdropPath: "/mXtL24G2Awyl3lKFtreMHnH5qFC.jpg",
-      firstAirDate: "1998-06-06",
-      genres: [
-        Genre(id: 35, name: "Comedy"),
-        Genre(id: 18, name: "Drama"),
-      ],
-      homepage: "http://www.hbo.com/sex-and-the-city",
-      id: 105,
-      inProduction: false,
-      languages: ["en"],
-      lastAirDate: "2004-02-22",
-      name: "Sex and the City",
-      numberOfEpisodes: 94,
-      numberOfSeasons: 6,
-      originCountry: ["US"],
-      originalLanguage: "en",
-      originalName: "Sex and the City",
-      overview: #"""
-        Based on the bestselling book by Candace Bushnell, Sex and the City tells the story of four best friends, all single and in their late thirties, as they pursue their careers and talk about their sex lives, all while trying to survive the New York social scene. 
-        """#,
-      popularity: 58.4986,
-      posterPath: "/jfLp8gTfdi9d8onEFJ60kp1Bl1e.jpg",
-      productionCompanies: [
-        ProductionCompany(
-          id: 1694,
-          logoPath: nil,
-          name: "Darren Star Productions",
-          originCountry: "US"
-        ),
-        ProductionCompany(
-          id: 3268,
-          logoPath: "/tuomPhY2UtuPTqqFnKMVHvSb724.png",
-          name: "HBO",
-          originCountry: "US"
-        ),
-      ],
-      productionCountries: [
-        Country(iso31661: "US", name: "United States of America")
-      ],
-      spokenLanguages: [
-        Language(englishName: "English", iso6391: "en", name: "English")
-      ],
-      status: "Ended",
-      tagline: "The next best thing to being there.",
-      type: "Scripted",
-      voteAverage: 7.4,
-      voteCount: 2068,
-      similar: nil
-    )
-    #expect(tvShowDetails == expectedTVShowDetails)
-  }
-
-  @Test
-  func decodeTVShowDetails2() async throws {
-    // Setup
-    let data = Data.tvShowDetails2
-    let decoder = JSONDecoder()
-    // Test
-    let tvShowDetails = try decoder.decode(TVShowDetails.self, from: data)
-    // Verify
-    let expectedTVShowDetails = TVShowDetails(
-      adult: false,
-      backdropPath: nil,
-      firstAirDate: "",
-      genres: [],
-      homepage: "",
-      id: 297377,
-      inProduction: true,
-      languages: [],
-      lastAirDate: nil,
-      name: "仙台有树（重剪版）",
-      numberOfEpisodes: nil,
-      numberOfSeasons: 0,
-      originCountry: ["CN"],
-      originalLanguage: "zh",
-      originalName: "仙台有树（重剪版）",
-      overview: "",
-      popularity: 0,
-      posterPath: nil,
-      productionCompanies: [],
-      productionCountries: [],
-      spokenLanguages: [],
-      status: "Returning Series",
-      tagline: "",
-      type: "Scripted",
-      voteAverage: 0,
-      voteCount: 0,
-      similar: nil
-    )
-    #expect(tvShowDetails == expectedTVShowDetails)
-  }
-
-  @Test
-  func decodeTVShowDetails3() async throws {
-    // Setup
-    let data = Data.tvShowDetails3
-    let decoder = JSONDecoder()
-    // Test
-    let tvShowDetails = try decoder.decode(TVShowDetails.self, from: data)
-    // Verify
+    #expect(tvShowDetails.adult == false)
+    #expect(tvShowDetails.backdropPath == "/mXtL24G2Awyl3lKFtreMHnH5qFC.jpg")
+    #expect(tvShowDetails.firstAirDate == "1998-06-06")
+    #expect(tvShowDetails.genres.count == 2)
+    #expect(tvShowDetails.homepage == "http://www.hbo.com/sex-and-the-city")
+    #expect(tvShowDetails.id == 105)
+    #expect(tvShowDetails.inProduction == false)
+    #expect(tvShowDetails.languages.count == 1)
+    #expect(tvShowDetails.lastAirDate == "2004-02-22")
+    #expect(tvShowDetails.name == "Sex and the City")
+    #expect(tvShowDetails.numberOfEpisodes == 94)
+    #expect(tvShowDetails.numberOfSeasons == 6)
+    #expect(tvShowDetails.originCountry.count == 1)
+    #expect(tvShowDetails.originalLanguage == "en")
+    #expect(tvShowDetails.originalName == "Sex and the City")
+    #expect(tvShowDetails.overview.isEmpty == false)
+    #expect(tvShowDetails.popularity == 51.1913)
+    #expect(tvShowDetails.posterPath == "/jfLp8gTfdi9d8onEFJ60kp1Bl1e.jpg")
+    #expect(tvShowDetails.productionCompanies.count == 2)
+    #expect(tvShowDetails.productionCountries.count == 1)
+    #expect(tvShowDetails.spokenLanguages.count == 1)
+    #expect(tvShowDetails.status == "Ended")
+    #expect(tvShowDetails.tagline == "The next best thing to being there.")
+    #expect(tvShowDetails.type == "Scripted")
+    #expect(tvShowDetails.voteAverage == 7.387)
+    #expect(tvShowDetails.voteCount == 2070)
+    #expect(tvShowDetails.keywords?.results.count == 8)
     #expect(tvShowDetails.similar?.results.count == 20)
+  }
+
+  @Test
+  func decodeMinimalData() async throws {
+    // Setup
+    let data = Data.tvShowDetailsMinimal
+    let decoder = JSONDecoder()
+    // Test
+    let tvShowDetails = try decoder.decode(TVShowDetails.self, from: data)
+    // Verify
+    #expect(tvShowDetails.adult == false)
+    #expect(tvShowDetails.backdropPath == nil)
+    #expect(tvShowDetails.firstAirDate == "")
+    #expect(tvShowDetails.genres.count == 0)
+    #expect(tvShowDetails.homepage == "")
+    #expect(tvShowDetails.id == 297377)
+    #expect(tvShowDetails.inProduction == true)
+    #expect(tvShowDetails.languages.count == 0)
+    #expect(tvShowDetails.lastAirDate == nil)
+    #expect(tvShowDetails.name == "仙台有树（重剪版）")
+    #expect(tvShowDetails.numberOfEpisodes == nil)
+    #expect(tvShowDetails.numberOfSeasons == 0)
+    #expect(tvShowDetails.originCountry.count == 1)
+    #expect(tvShowDetails.originalLanguage == "zh")
+    #expect(tvShowDetails.originalName == "仙台有树（重剪版）")
+    #expect(tvShowDetails.overview.isEmpty == true)
+    #expect(tvShowDetails.popularity == 0)
+    #expect(tvShowDetails.posterPath == nil)
+    #expect(tvShowDetails.productionCompanies.count == 0)
+    #expect(tvShowDetails.productionCountries.count == 0)
+    #expect(tvShowDetails.spokenLanguages.count == 0)
+    #expect(tvShowDetails.status == "Returning Series")
+    #expect(tvShowDetails.tagline == "")
+    #expect(tvShowDetails.type == "Scripted")
+    #expect(tvShowDetails.voteAverage == 0)
+    #expect(tvShowDetails.voteCount == 0)
+    #expect(tvShowDetails.keywords == nil)
+    #expect(tvShowDetails.similar == nil)
   }
 }

@@ -1,13 +1,9 @@
 public struct Country: Codable, Hashable, Sendable {
-  public var iso31661: String
-  public var name: String
+  public var iso31661 = ""
+  public var name = ""
 
-  public init(
-    iso31661: String,
-    name: String
-  ) {
-    self.iso31661 = iso31661
-    self.name = name
+  public init() {
+    // Makes initializer public
   }
 
   private enum CodingKeys: String, CodingKey {

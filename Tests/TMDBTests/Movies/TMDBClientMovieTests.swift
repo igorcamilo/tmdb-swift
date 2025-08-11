@@ -14,7 +14,7 @@ struct TMDBClientMovieTests {
     // Test
     let client = TMDBClient(accessToken: "ABC123") {
       await urlRequestStorage.setValue($0)
-      return Response(data: .movieDetails1, statusCode: 200)
+      return Response(data: .movieDetailsComplete, statusCode: 200)
     }
     await #expect(throws: Never.self) {
       try await client.movieDetails(id: 123)
@@ -22,7 +22,7 @@ struct TMDBClientMovieTests {
     // Verify
     let urlRequest = try #require(await urlRequestStorage.value)
     let absoluteURLString = #"""
-      https://api.themoviedb.org/3/movie/123?append_to_response=similar
+      https://api.themoviedb.org/3/movie/123?append_to_response=keywords,similar
       """#
     #expect(urlRequest.url?.absoluteString == absoluteURLString)
     #expect(urlRequest.httpMethod == "GET")

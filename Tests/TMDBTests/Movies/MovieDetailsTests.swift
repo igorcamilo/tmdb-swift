@@ -4,123 +4,78 @@ import Testing
 
 struct MovieDetailsTests {
   @Test
-  func decodeMovieDetails1() async throws {
+  func decodeCompleteData() async throws {
     // Setup
-    let data = Data.movieDetails1
+    let data = Data.movieDetailsComplete
     let decoder = JSONDecoder()
     // Test
     let movieDetails = try decoder.decode(MovieDetails.self, from: data)
     // Verify
-    let expectedMovieDetails = MovieDetails(
-      adult: false,
-      backdropPath: "/1RAxtBxslR4OZCZC1vxIRUxjR7a.jpg",
-      belongsToCollection: MovieCollection(
-        id: 86860,
-        name: "Scooby-Doo Collection",
-        posterPath: "/GoZ2F80wVsnvdXtwtWY5HPnxYG.jpg",
-        backdropPath: "/crBcWcmfSwM1FaFr7s3dOyzSF9m.jpg"
-      ),
-      budget: 84_000_000,
-      genres: [
-        Genre(id: 9648, name: "Mystery"),
-        Genre(id: 12, name: "Adventure"),
-        Genre(id: 35, name: "Comedy"),
-      ],
-      homepage: "https://www.warnerbros.com/movies/scooby-doo-movie",
-      id: 9637,
-      imdbID: "tt0267913",
-      originCountry: ["US"],
-      originalLanguage: "en",
-      originalTitle: "Scooby-Doo",
-      overview: #"""
-        When the Mystery Inc. gang is invited to Spooky Island, a popular amusement park, they soon discover that the attractions aren't the only things that are spooky. Strange things are happening, and it's up to Scooby, Shaggy, Fred, Daphne, and Velma to uncover the truth behind the mysterious happenings.
-        """#,
-      popularity: 6.0804,
-      posterPath: "/mTAiBJGg8mqEfnYHHbi37ZoRSZm.jpg",
-      productionCompanies: [
-        ProductionCompany(
-          id: 748,
-          logoPath: nil,
-          name: "Mosaic Media Group",
-          originCountry: "US"
-        ),
-        ProductionCompany(
-          id: 174,
-          logoPath: "/kgJaIcKZZK4lTazer55XrgWDEvp.png",
-          name: "Warner Bros. Pictures",
-          originCountry: "US"
-        ),
-      ],
-      productionCountries: [Country(iso31661: "US", name: "United States of America")],
-      releaseDate: "2002-06-14",
-      revenue: 275_650_703,
-      runtime: 87,
-      spokenLanguages: [
-        Language(
-          englishName: "English",
-          iso6391: "en",
-          name: "English"
-        )
-      ],
-      status: "Released",
-      tagline: "Be afraid. Be kind of afraid.",
-      title: "Scooby-Doo",
-      video: false,
-      voteAverage: 6.1,
-      voteCount: 4561,
-      similar: nil
-    )
-    #expect(movieDetails == expectedMovieDetails)
-  }
-
-  @Test
-  func decodeMovieDetails2() async throws {
-    // Setup
-    let data = Data.movieDetails2
-    let decoder = JSONDecoder()
-    // Test
-    let movieDetails = try decoder.decode(MovieDetails.self, from: data)
-    // Verify
-    let expectedMovieDetails = MovieDetails(
-      adult: false,
-      backdropPath: nil,
-      belongsToCollection: nil,
-      budget: 0,
-      genres: [],
-      homepage: "",
-      id: 1_524_528,
-      imdbID: nil,
-      originCountry: ["NL"],
-      originalLanguage: "nl",
-      originalTitle: "Home alone collection",
-      overview: "",
-      popularity: 0,
-      posterPath: nil,
-      productionCompanies: [],
-      productionCountries: [],
-      releaseDate: "",
-      revenue: 0,
-      runtime: 0,
-      spokenLanguages: [],
-      status: "Released",
-      tagline: "",
-      title: "Home alone collection",
-      video: false,
-      voteAverage: 0,
-      voteCount: 0,
-      similar: nil
-    )
-    #expect(movieDetails == expectedMovieDetails)
-  }
-
-  @Test
-  func decodeMovieDetails3() async throws {
-    // Setup
-    let data = Data.movieDetails3
-    let decoder = JSONDecoder()
-    // Test
-    let movieDetails = try decoder.decode(MovieDetails.self, from: data)
-    // Verify
+    #expect(movieDetails.adult == false)
+    #expect(movieDetails.backdropPath == "/1RAxtBxslR4OZCZC1vxIRUxjR7a.jpg")
+    #expect(movieDetails.belongsToCollection != nil)
+    #expect(movieDetails.budget == 84_000_000)
+    #expect(movieDetails.genres.count == 3)
+    #expect(movieDetails.homepage == "https://www.warnerbros.com/movies/scooby-doo-movie")
+    #expect(movieDetails.id == 9637)
+    #expect(movieDetails.imdbID == "tt0267913")
+    #expect(movieDetails.originCountry?.count == 1)
+    #expect(movieDetails.originalLanguage == "en")
+    #expect(movieDetails.originalTitle == "Scooby-Doo")
+    #expect(movieDetails.overview.isEmpty == false)
+    #expect(movieDetails.popularity == 6.5838)
+    #expect(movieDetails.posterPath == "/mTAiBJGg8mqEfnYHHbi37ZoRSZm.jpg")
+    #expect(movieDetails.productionCompanies.count == 2)
+    #expect(movieDetails.productionCountries.count == 1)
+    #expect(movieDetails.releaseDate == "2002-06-14")
+    #expect(movieDetails.revenue == 275_650_703)
+    #expect(movieDetails.runtime == 87)
+    #expect(movieDetails.spokenLanguages.count == 1)
+    #expect(movieDetails.status == "Released")
+    #expect(movieDetails.tagline == "Be afraid. Be kind of afraid.")
+    #expect(movieDetails.title == "Scooby-Doo")
+    #expect(movieDetails.video == false)
+    #expect(movieDetails.voteAverage == 6.092)
+    #expect(movieDetails.voteCount == 4562)
+    #expect(movieDetails.keywords?.keywords.count == 10)
     #expect(movieDetails.similar?.results.count == 20)
+  }
+
+  @Test
+  func decodeMinimalData() async throws {
+    // Setup
+    let data = Data.movieDetailsMinimal
+    let decoder = JSONDecoder()
+    // Test
+    let movieDetails = try decoder.decode(MovieDetails.self, from: data)
+    // Verify
+    #expect(movieDetails.adult == false)
+    #expect(movieDetails.backdropPath == nil)
+    #expect(movieDetails.belongsToCollection == nil)
+    #expect(movieDetails.budget == 0)
+    #expect(movieDetails.genres.count == 0)
+    #expect(movieDetails.homepage == "")
+    #expect(movieDetails.id == 1_524_528)
+    #expect(movieDetails.imdbID == nil)
+    #expect(movieDetails.originCountry?.count == 1)
+    #expect(movieDetails.originalLanguage == "nl")
+    #expect(movieDetails.originalTitle == "Home alone collection")
+    #expect(movieDetails.overview.isEmpty)
+    #expect(movieDetails.popularity == 0)
+    #expect(movieDetails.posterPath == nil)
+    #expect(movieDetails.productionCompanies.count == 0)
+    #expect(movieDetails.productionCountries.count == 0)
+    #expect(movieDetails.releaseDate == "")
+    #expect(movieDetails.revenue == 0)
+    #expect(movieDetails.runtime == 0)
+    #expect(movieDetails.spokenLanguages.count == 0)
+    #expect(movieDetails.status == "Released")
+    #expect(movieDetails.tagline == "")
+    #expect(movieDetails.title == "Home alone collection")
+    #expect(movieDetails.video == false)
+    #expect(movieDetails.voteAverage == 0)
+    #expect(movieDetails.voteCount == 0)
+    #expect(movieDetails.keywords == nil)
+    #expect(movieDetails.similar == nil)
   }
 }

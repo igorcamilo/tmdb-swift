@@ -1,19 +1,11 @@
 public struct ProductionCompany: Codable, Hashable, Identifiable, Sendable {
-  public var id: ID
+  public var id: ID = 0
   public var logoPath: String?
-  public var name: String
-  public var originCountry: String
+  public var name = ""
+  public var originCountry = ""
 
-  public init(
-    id: ID,
-    logoPath: String?,
-    name: String,
-    originCountry: String
-  ) {
-    self.id = id
-    self.logoPath = logoPath
-    self.name = name
-    self.originCountry = originCountry
+  public init() {
+    // Makes initializer public
   }
 
   public struct ID: Codable, Hashable, RawRepresentable, Sendable {

@@ -81,7 +81,7 @@ print(config.images.baseURL)
 ### Configuration
 - `client.configuration()` — Get image base URLs, sizes, etc.
 
-## Running Tests
+## Testing
 
 Run all tests with:
 
@@ -89,13 +89,18 @@ Run all tests with:
 swift test
 ```
 
+## Code Style
+
+- 2-space indentation and Unix line endings enforced via `.editorconfig`.
+- Linting is automated in CI with Swift Format.
+
 ## License
 
 MIT License. See [LICENSE](LICENSE).
 
-## Contributing
+## Acknowledgments
 
-Contributions are welcome! Please open issues or pull requests.
+- [TMDB](https://www.themoviedb.org/) for the movie/TV data API
 
 ---
 

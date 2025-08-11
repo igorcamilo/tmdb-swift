@@ -1,19 +1,11 @@
 public struct MovieCollection: Codable, Hashable, Identifiable, Sendable {
-  public var id: ID
-  public var name: String
+  public var id: ID = 0
+  public var name = ""
   public var posterPath: PosterPath?
   public var backdropPath: BackdropPath?
 
-  public init(
-    id: ID,
-    name: String,
-    posterPath: PosterPath?,
-    backdropPath: BackdropPath?
-  ) {
-    self.id = id
-    self.name = name
-    self.posterPath = posterPath
-    self.backdropPath = backdropPath
+  public init() {
+    // Makes initializer public
   }
 
   public struct ID: Codable, Hashable, RawRepresentable, Sendable {

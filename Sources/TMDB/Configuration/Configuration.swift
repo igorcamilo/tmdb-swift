@@ -1,13 +1,9 @@
 public struct Configuration: Codable, Hashable, Sendable {
-  public var changeKeys: [String]
-  public var images: Images
+  public var changeKeys: [String] = []
+  public var images = Images()
 
-  public init(
-    changeKeys: [String],
-    images: Images
-  ) {
-    self.changeKeys = changeKeys
-    self.images = images
+  public init() {
+    // Makes initializer public
   }
 
   private enum CodingKeys: String, CodingKey {
