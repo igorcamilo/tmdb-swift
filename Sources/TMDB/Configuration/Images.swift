@@ -1,16 +1,30 @@
 import Foundation
 
 public struct Images: Codable, Hashable, Sendable {
-  public var baseURL = ""
-  public var secureBaseURL = ""
-  public var backdropSizes: [BackdropSize] = []
-  public var logoSizes: [String] = []
-  public var posterSizes: [PosterSize] = []
-  public var profileSizes: [String] = []
-  public var stillSizes: [String] = []
+  public var baseURL: String
+  public var secureBaseURL: String
+  public var backdropSizes: [BackdropSize]
+  public var logoSizes: [String]
+  public var posterSizes: [PosterSize]
+  public var profileSizes: [String]
+  public var stillSizes: [String]
 
-  public init() {
-    // Makes initializer public
+  public init(
+    baseURL: String = "",
+    secureBaseURL: String = "",
+    backdropSizes: [BackdropSize] = [],
+    logoSizes: [String] = [],
+    posterSizes: [PosterSize] = [],
+    profileSizes: [String] = [],
+    stillSizes: [String] = []
+  ) {
+    self.baseURL = baseURL
+    self.secureBaseURL = secureBaseURL
+    self.backdropSizes = backdropSizes
+    self.logoSizes = logoSizes
+    self.posterSizes = posterSizes
+    self.profileSizes = profileSizes
+    self.stillSizes = stillSizes
   }
 
   public func size<T: RawRepresentable<String>>(

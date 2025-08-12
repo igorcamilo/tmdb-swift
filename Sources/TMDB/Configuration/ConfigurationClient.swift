@@ -2,22 +2,21 @@ import Dependencies
 import DependenciesMacros
 import Foundation
 
-@DependencyClient struct ConfigurationClient {
-  var configuration:
+@DependencyClient public struct ConfigurationClient: Sendable {
+  var details:
     @Sendable (
-      _ locale: Locale?,
       _ accessToken: String
-    ) async throws -> Configuration
+    ) async throws -> ConfigurationDetails
 }
 
 extension ConfigurationClient: DependencyKey {
-  static let liveValue = ConfigurationClient(
-    configuration: { locale, accessToken in
+  public static let liveValue = ConfigurationClient(
+    details: { accessToken in
       @Dependency(\.sharedClient) var sharedClient
       return try await sharedClient.fetch(
         relativePath: "configuration",
         queryItems: nil,
-        locale: locale,
+        locale: nil,
         accessToken: accessToken
       )
     }

@@ -4,7 +4,6 @@ import Testing
 struct CoverageTests {
   @Test func completeMissing() {
     // This is only meant to ensure all code is covered
-    _ = Configuration()
     _ = Country()
     _ = Genre()
     _ = Keyword()

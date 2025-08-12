@@ -18,9 +18,13 @@ let package = Package(
   ],
   dependencies: [
     .package(
+      url: "https://github.com/pointfreeco/swift-custom-dump.git",
+      from: "1.0.0"
+    ),
+    .package(
       url: "https://github.com/pointfreeco/swift-dependencies.git",
       from: "1.0.0"
-    )
+    ),
   ],
   targets: [
     .target(
@@ -32,7 +36,10 @@ let package = Package(
     ),
     .testTarget(
       name: "TMDBTests",
-      dependencies: ["TMDB"]
+      dependencies: [
+        "TMDB",
+        .product(name: "CustomDump", package: "swift-custom-dump"),
+      ]
     ),
   ]
 )
