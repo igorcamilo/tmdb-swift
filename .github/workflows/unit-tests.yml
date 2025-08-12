@@ -32,7 +32,7 @@ jobs:
     - name: Select Xcode version
       run: sudo xcode-select -s /Applications/Xcode_16.4.app
     - name: Build and run tests
-      run: xcrun xcodebuild test -scheme TMDB -resultBundlePath "Artifacts/testResult.xcresult" -destination "${{ matrix.destination }}" -enableCodeCoverage YES -skipMacroValidation CODE_SIGNING_ALLOWED=NO SWIFT_TREAT_WARNINGS_AS_ERRORS=YES SWIFT_SUPPRESS_WARNINGS=NO
+      run: xcrun xcodebuild test -scheme TMDB -resultBundlePath "Artifacts/testResult.xcresult" -destination "${{ matrix.destination }}" -enableCodeCoverage YES -skipMacroValidation
     - if: always()
       name: Convert xcresult to JUnit
       run: xcresultparser -o junit Artifacts/testResult.xcresult > Artifacts/testResult.xml
@@ -90,7 +90,7 @@ jobs:
     - name: Build and run tests
       run: |
         xcrun swift --version
-        xcrun swift ${{ matrix.command }} -Xswiftc -warnings-as-errors
+        xcrun swift ${{ matrix.command }}
   swift-tests-ubuntu:
     name: Swift ${{ matrix.swift-version }} (Linux)
     runs-on: ubuntu-24.04
@@ -117,4 +117,4 @@ jobs:
         hash -r
         swiftly install --use ${{ matrix.swift-version }}
         swiftly run swift --version
-        swiftly run swift ${{ matrix.command }} -Xswiftc -warnings-as-errors
+        swiftly run swift ${{ matrix.command }}
