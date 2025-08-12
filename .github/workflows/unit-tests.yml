@@ -32,7 +32,7 @@ jobs:
     - name: Select Xcode version
       run: sudo xcode-select -s /Applications/Xcode_16.4.app
     - name: Build and run tests
-      run: xcrun xcodebuild test -scheme TMDB -resultBundlePath "Artifacts/testResult.xcresult" -destination "${{ matrix.destination }}" -enableCodeCoverage YES -skipMacroValidation CODE_SIGNING_ALLOWED=NO SWIFT_TREAT_WARNINGS_AS_ERRORS=YES
+      run: xcrun xcodebuild test -scheme TMDB -resultBundlePath "Artifacts/testResult.xcresult" -destination "${{ matrix.destination }}" -enableCodeCoverage YES -skipMacroValidation CODE_SIGNING_ALLOWED=NO SWIFT_TREAT_WARNINGS_AS_ERRORS=YES SWIFT_SUPPRESS_WARNINGS=NO
     - if: always()
       name: Convert xcresult to JUnit
       run: xcresultparser -o junit Artifacts/testResult.xcresult > Artifacts/testResult.xml
