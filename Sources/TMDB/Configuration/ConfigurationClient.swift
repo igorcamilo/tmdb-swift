@@ -14,7 +14,7 @@ extension ConfigurationClient: DependencyKey {
   static let liveValue = ConfigurationClient(
     configuration: { locale, accessToken in
       @Dependency(\.sharedClient) var sharedClient
-      return try await sharedClient.makeRequest(
+      return try await sharedClient.fetch(
         relativePath: "configuration",
         queryItems: nil,
         locale: locale,

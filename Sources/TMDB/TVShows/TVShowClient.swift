@@ -28,7 +28,7 @@ extension TVShowClient: DependencyKey {
         queryItems.append(URLQueryItem(name: "append_to_response", value: value))
       }
       @Dependency(\.sharedClient) var sharedClient
-      return try await sharedClient.makeRequest(
+      return try await sharedClient.fetch(
         relativePath: "tv/\(id)",
         queryItems: queryItems.isEmpty ? nil : queryItems,
         locale: locale,
@@ -37,7 +37,7 @@ extension TVShowClient: DependencyKey {
     },
     tvShows: { list, locale, accessToken in
       @Dependency(\.sharedClient) var sharedClient
-      return try await sharedClient.makeRequest(
+      return try await sharedClient.fetch(
         relativePath: list.relativePath,
         queryItems: nil,
         locale: locale,

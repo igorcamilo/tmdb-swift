@@ -28,7 +28,7 @@ extension MovieClient: DependencyKey {
         queryItems.append(URLQueryItem(name: "append_to_response", value: value))
       }
       @Dependency(\.sharedClient) var sharedClient
-      return try await sharedClient.makeRequest(
+      return try await sharedClient.fetch(
         relativePath: "movie/\(id)",
         queryItems: queryItems,
         locale: locale,
@@ -37,7 +37,7 @@ extension MovieClient: DependencyKey {
     },
     movies: { list, locale, accessToken in
       @Dependency(\.sharedClient) var sharedClient
-      return try await sharedClient.makeRequest(
+      return try await sharedClient.fetch(
         relativePath: "movie/popular",
         queryItems: nil,
         locale: locale,

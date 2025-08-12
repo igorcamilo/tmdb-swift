@@ -9,9 +9,9 @@ import Foundation
 private let decoder = JSONDecoder()
 
 @DependencyClient struct SharedClient {
-  var data: @Sendable (URLRequest) async throws -> (Data, URLResponse)
+  var fetch: @Sendable (URLRequest) async throws -> (Data, URLResponse)
 
-  func makeRequest<T>(
+  func fetch<T>(
     relativePath: String,
     queryItems: [URLQueryItem]?,
     locale: Locale?,
@@ -36,7 +36,7 @@ private let decoder = JSONDecoder()
       "Accept": "application/json",
       "Authorization": "Bearer \(accessToken)",
     ]
-    let (data, response) = try await data(urlRequest)
+    let (data, response) = try await fetch(urlRequest)
     if (response as? HTTPURLResponse)?.statusCode == 200 {
       return try decoder.decode(T.self, from: data)
     } else {
@@ -47,7 +47,7 @@ private let decoder = JSONDecoder()
 
 extension SharedClient: DependencyKey {
   static let liveValue = SharedClient(
-    data: { try await URLSession.shared.data(for: $0) }
+    fetch: { try await URLSession.shared.data(for: $0) }
   )
 }
 
