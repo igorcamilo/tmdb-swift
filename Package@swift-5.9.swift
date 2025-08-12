@@ -16,9 +16,16 @@ let package = Package(
       targets: ["TMDB"]
     )
   ],
+  dependencies: [
+    .package(
+      url: "https://github.com/pointfreeco/swift-dependencies.git",
+      from: "1.0.0"
+    ),
+  ],
   targets: [
     .target(
-      name: "TMDB"
+      name: "TMDB",
+      dependencies: [.product(name: "Dependencies", package: "swift-dependencies")]
     ),
     .testTarget(
       name: "TMDBTests",

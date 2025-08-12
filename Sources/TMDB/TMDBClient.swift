@@ -4,34 +4,31 @@ import Foundation
   import FoundationNetworking
 #endif
 
-private let defaultPerformRequest: TMDBClient.PerformRequest = { request in
-  try await Response(URLSession.shared.data(for: request))
-}
-
 public final class TMDBClient: Sendable {
+  public let baseURLString: String
   public let accessToken: String
-  public let performRequest: PerformRequest
 
   let decoder = JSONDecoder()
 
   public init(
-    accessToken: String,
-    performRequest: PerformRequest? = nil
+    baseURLString: String = "https://api.themoviedb.org/3/",
+    accessToken: String
   ) {
+    self.baseURLString = baseURLString
     self.accessToken = accessToken
-    self.performRequest = performRequest ?? defaultPerformRequest
   }
 
   func urlRequest(
     relativePath: String,
     queryItems: [URLQueryItem]? = nil
   ) throws -> URLRequest {
-    let baseURLString = "https://api.themoviedb.org/3/"
-    var components = URLComponents(string: baseURLString)!
+    guard var components = URLComponents(string: baseURLString) else {
+      throw TMDBClientError.invalidBaseURLString(baseURLString)
+    }
     components.path.append(relativePath)
     components.queryItems = queryItems
     guard let url = components.url else {
-      throw TMDBClientError.invalidURL(components)
+      throw TMDBClientError.invalidURLComponents(components)
     }
     var urlRequest = URLRequest(url: url)
     urlRequest.allHTTPHeaderFields = [
@@ -40,6 +37,4 @@ public final class TMDBClient: Sendable {
     ]
     return urlRequest
   }
-
-  public typealias PerformRequest = @Sendable (URLRequest) async throws -> Response
 }

@@ -1,3 +1,4 @@
+import Dependencies
 import Foundation
 
 #if canImport(FoundationNetworking)
@@ -18,21 +19,23 @@ extension TMDBClient {
       relativePath: "tv/\(id.rawValue)",
       queryItems: queryItems.isEmpty ? nil : queryItems
     )
-    let response = try await performRequest(urlRequest)
-    if response.statusCode == 200 {
-      return try decoder.decode(TVShowDetails.self, from: response.data)
+    @Dependency(\.urlSession) var urlSession
+    let (data, response) = try await urlSession.data(for: urlRequest)
+    if (response as? HTTPURLResponse)?.statusCode == 200 {
+      return try decoder.decode(TVShowDetails.self, from: data)
     } else {
-      throw try decoder.decode(TMDBError.self, from: response.data)
+      throw try decoder.decode(TMDBError.self, from: data)
     }
   }
 
   public func tvShows(list: TVShowList) async throws -> Page<TVShow> {
     let urlRequest = try urlRequest(relativePath: list.relativePath)
-    let response = try await performRequest(urlRequest)
-    if response.statusCode == 200 {
-      return try decoder.decode(Page<TVShow>.self, from: response.data)
+    @Dependency(\.urlSession) var urlSession
+    let (data, response) = try await urlSession.data(for: urlRequest)
+    if (response as? HTTPURLResponse)?.statusCode == 200 {
+      return try decoder.decode(Page<TVShow>.self, from: data)
     } else {
-      throw try decoder.decode(TMDBError.self, from: response.data)
+      throw try decoder.decode(TMDBError.self, from: data)
     }
   }
 }

@@ -1,5 +1,6 @@
 import Foundation
 
 public enum TMDBClientError: Error {
-  case invalidURL(URLComponents)
+  case invalidBaseURLString(String)
+  case invalidURLComponents(URLComponents)
 }
