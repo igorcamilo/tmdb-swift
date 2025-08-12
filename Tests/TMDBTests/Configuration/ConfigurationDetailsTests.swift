@@ -1,11 +1,11 @@
 import TMDB
 import Testing
 
-struct ImagesTests {
-  private var testImages: Images {
-    var images = Images()
-    images.secureBaseURL = "https://kinova.igorcamilo.com/"
-    return images
+struct ConfigurationDetailsTests {
+  private var testImages: ConfigurationDetails.Images {
+    ConfigurationDetails.Images(
+      secureBaseURL: "https://kinova.igorcamilo.com/"
+    )
   }
 
   @Test(
@@ -20,7 +20,7 @@ struct ImagesTests {
       (nil, "/123.svg", "https://kinova.igorcamilo.com/xyz/123.svg"),
     ]
   )
-  func backdropURL(width: Double?, path: BackdropPath, expectedURL: String) {
+  func imagesBackdropURL(width: Double?, path: BackdropPath, expectedURL: String) {
     // Setup
     var images = testImages
     images.backdropSizes = ["abc", "w122", "h123", "w123", "w124", "xyz"]
@@ -30,9 +30,9 @@ struct ImagesTests {
     #expect(url?.absoluteString == expectedURL)
   }
 
-  @Test func backdropNoURL() {
+  @Test func imagesBackdropNoURL() {
     // Setup
-    var images = Images()
+    var images = ConfigurationDetails.Images()
     images.backdropSizes = ["abc"]
     // Test
     let url = images.url(path: "/123.png" as BackdropPath)
@@ -40,7 +40,7 @@ struct ImagesTests {
     #expect(url == nil)
   }
 
-  @Test func backdropNoPath() {
+  @Test func imagesBackdropNoPath() {
     // Test
     let url = testImages.url(path: "/123.svg" as BackdropPath)
     // Verify
@@ -59,7 +59,7 @@ struct ImagesTests {
       (nil, "/123.svg", "https://kinova.igorcamilo.com/xyz/123.svg"),
     ]
   )
-  func posterURL(width: Double?, path: PosterPath, expectedURL: String) {
+  func imagesPosterURL(width: Double?, path: PosterPath, expectedURL: String) {
     // Setup
     var images = testImages
     images.posterSizes = ["abc", "w122", "h123", "w123", "w124", "xyz"]
@@ -69,9 +69,9 @@ struct ImagesTests {
     #expect(url?.absoluteString == expectedURL)
   }
 
-  @Test func posterNoURL() {
+  @Test func imagesPosterNoURL() {
     // Setup
-    var images = Images()
+    var images = ConfigurationDetails.Images()
     images.posterSizes = ["abc"]
     // Test
     let url = images.url(path: "/456.png" as PosterPath)
@@ -79,7 +79,7 @@ struct ImagesTests {
     #expect(url == nil)
   }
 
-  @Test func posterNoPath() {
+  @Test func imagesPosterNoPath() {
     // Test
     let url = testImages.url(path: "/456.svg" as PosterPath)
     // Verify

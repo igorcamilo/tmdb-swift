@@ -1,5 +1,5 @@
 public struct BackdropPath: Codable, Hashable, ImagePath, Sendable {
-  public static var keyPath: KeyPath<Images, [BackdropSize]> {
+  public static var keyPath: KeyPath<ConfigurationDetails.Images, [BackdropSize]> {
     \.backdropSizes
   }
 

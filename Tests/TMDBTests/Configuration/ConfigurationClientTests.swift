@@ -5,6 +5,10 @@ import Testing
 
 @testable import TMDB
 
+#if canImport(FoundationNetworking)
+  import FoundationNetworking
+#endif
+
 struct ConfigurationClientTests {
   @Test func detailsSuccess() async throws {
     let fetchCalls = LockIsolated<[URLRequest]>([])
@@ -90,7 +94,7 @@ private func expectedDetails() -> ConfigurationDetails {
       "video",
       "videos",
     ],
-    images: Images(
+    images: ConfigurationDetails.Images(
       baseURL: "http://image.tmdb.org/t/p/",
       secureBaseURL: "https://image.tmdb.org/t/p/",
       backdropSizes: [

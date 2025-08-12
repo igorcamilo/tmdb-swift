@@ -1,5 +1,5 @@
 public struct PosterPath: Codable, Hashable, ImagePath, Sendable {
-  public static var keyPath: KeyPath<Images, [PosterSize]> {
+  public static var keyPath: KeyPath<ConfigurationDetails.Images, [PosterSize]> {
     \.posterSizes
   }
 
