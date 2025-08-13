@@ -10,6 +10,23 @@ import Testing
 #endif
 
 struct ConfigurationClientTests {
+  @Test func register() async throws {
+    let detailsCalls = LockIsolated<[String]>([])
+    let details = try await withDependencies {
+      $0.configurationClient.details = { accessToken in
+        detailsCalls.withValue { $0.append(accessToken) }
+        return expectedDetails()
+      }
+    } operation: {
+      @Dependency(\.configurationClient) var configurationClient
+      return try await configurationClient.details("ABC123")
+    }
+    expectNoDifference(details, expectedDetails())
+    #expect(detailsCalls.value.count == 1)
+    let accessToken = try #require(detailsCalls.value.first)
+    expectNoDifference(accessToken, "ABC123")
+  }
+
   @Test func detailsSuccess() async throws {
     let fetchCalls = LockIsolated<[URLRequest]>([])
     let sharedClient = SharedClient(
@@ -25,12 +42,12 @@ struct ConfigurationClientTests {
       }
     )
     let configurationClient = ConfigurationClient.liveValue
-    let configuration = try await withDependencies {
+    let details = try await withDependencies {
       $0.sharedClient = sharedClient
     } operation: {
       try await configurationClient.details("ABC123")
     }
-    expectNoDifference(configuration, expectedDetails())
+    expectNoDifference(details, expectedDetails())
     #expect(fetchCalls.value.count == 1)
     let urlRequest = try #require(fetchCalls.value.first)
     expectNoDifference(urlRequest, expectedURLRequest())
@@ -138,9 +155,7 @@ private func expectedDetails() -> ConfigurationDetails {
 }
 
 private func expectedURLRequest() -> URLRequest? {
-  guard let url = URL(string: "https://api.themoviedb.org/3/configuration") else {
-    return nil
-  }
+  let url = URL(string: "https://api.themoviedb.org/3/configuration")!
   var urlRequest = URLRequest(url: url)
   urlRequest.allHTTPHeaderFields = [
     "Accept": "application/json",

@@ -16,34 +16,18 @@ public struct Movie: Codable, Hashable, Identifiable, Sendable {
 
   public init(
     adult: Bool,
-    backdropPath: BackdropPath?,
-    genreIDs: [Genre.ID]?,
     id: ID,
     originalLanguage: String,
     originalTitle: String,
     overview: String,
-    popularity: Double?,
-    posterPath: PosterPath?,
-    releaseDate: String?,
-    title: String,
-    video: Bool?,
-    voteAverage: Double?,
-    voteCount: Int?
+    title: String
   ) {
     self.adult = adult
-    self.backdropPath = backdropPath
-    self.genreIDs = genreIDs
     self.id = id
     self.originalLanguage = originalLanguage
     self.originalTitle = originalTitle
     self.overview = overview
-    self.popularity = popularity
-    self.posterPath = posterPath
-    self.releaseDate = releaseDate
     self.title = title
-    self.video = video
-    self.voteAverage = voteAverage
-    self.voteCount = voteCount
   }
 
   public struct ID: Codable, Hashable, RawRepresentable, Sendable {
