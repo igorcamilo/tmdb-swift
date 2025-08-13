@@ -9,8 +9,8 @@ import Dependencies
 import DependenciesMacros
 import Foundation
 
-@DependencyClient struct TVShowClient {
-  var details:
+@DependencyClient public struct TVShowClient: Sendable {
+  public var details:
     @Sendable (
       _ id: TVShow.ID,
       _ appending: [TVShowAppendOptions],
@@ -18,7 +18,7 @@ import Foundation
       _ accessToken: AccessToken
     ) async throws -> TVShowDetails
 
-  var tvShows:
+  public var tvShows:
     @Sendable (
       _ list: TVShowList,
       _ locale: Locale?,
@@ -27,7 +27,7 @@ import Foundation
 }
 
 extension TVShowClient: DependencyKey {
-  static let liveValue = TVShowClient(
+  public static let liveValue = TVShowClient(
     details: { id, appending, locale, accessToken in
       var queryItems: [URLQueryItem] = []
       if !appending.isEmpty {
@@ -55,7 +55,7 @@ extension TVShowClient: DependencyKey {
 }
 
 extension DependencyValues {
-  var tvShowClient: TVShowClient {
+  public var tvShowClient: TVShowClient {
     get { self[TVShowClient.self] }
     set { self[TVShowClient.self] = newValue }
   }

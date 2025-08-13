@@ -9,8 +9,8 @@ import Dependencies
 import DependenciesMacros
 import Foundation
 
-@DependencyClient struct MovieClient {
-  var details:
+@DependencyClient public struct MovieClient: Sendable {
+  public var details:
     @Sendable (
       _ id: Movie.ID,
       _ appending: [MovieAppendOptions],
@@ -18,7 +18,7 @@ import Foundation
       _ accessToken: AccessToken
     ) async throws -> MovieDetails
 
-  var movies:
+  public var movies:
     @Sendable (
       _ list: MovieList,
       _ locale: Locale?,
@@ -27,7 +27,7 @@ import Foundation
 }
 
 extension MovieClient: DependencyKey {
-  static let liveValue = MovieClient(
+  public static let liveValue = MovieClient(
     details: { id, appending, locale, accessToken in
       var queryItems: [URLQueryItem] = []
       if !appending.isEmpty {
@@ -55,7 +55,7 @@ extension MovieClient: DependencyKey {
 }
 
 extension DependencyValues {
-  var movieClient: MovieClient {
+  public var movieClient: MovieClient {
     get { self[MovieClient.self] }
     set { self[MovieClient.self] = newValue }
   }
