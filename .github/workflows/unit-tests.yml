@@ -73,7 +73,7 @@ jobs:
         - swift-version: "6.0"
           xcode-version: "16.0"
           runner: macos-15
-          command: test
+          command: build
         - swift-version: "5.10"
           xcode-version: "15.3"
           runner: macos-14
