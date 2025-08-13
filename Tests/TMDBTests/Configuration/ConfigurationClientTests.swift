@@ -1,3 +1,10 @@
+//
+//  ConfigurationClientTests.swift
+//  TMDB
+//
+//  Created by Igor Camilo on 13.08.25.
+//
+
 import CustomDump
 import Dependencies
 import Foundation
@@ -11,7 +18,7 @@ import Testing
 
 struct ConfigurationClientTests {
   @Test func register() async throws {
-    let detailsCalls = LockIsolated<[String]>([])
+    let detailsCalls = LockIsolated<[AccessToken]>([])
     let details = try await withDependencies {
       $0.configurationClient.details = { accessToken in
         detailsCalls.withValue { $0.append(accessToken) }
@@ -111,7 +118,7 @@ private func expectedDetails() -> ConfigurationDetails {
       "video",
       "videos",
     ],
-    images: ConfigurationDetails.Images(
+    images: ImageConfiguration(
       baseURL: "http://image.tmdb.org/t/p/",
       secureBaseURL: "https://image.tmdb.org/t/p/",
       backdropSizes: [

@@ -17,16 +17,12 @@ public struct TVShow: Codable, Hashable, Identifiable, Sendable {
   public var popularity = 0.0
   public var posterPath: PosterPath?
   public var firstAirDate = ""
-  public var name: String
+  public var name = ""
   public var voteAverage = 0.0
   public var voteCount = 0
 
-  public init(
-    id: ID,
-    name: String
-  ) {
+  public init(id: ID) {
     self.id = id
-    self.name = name
   }
 
   public struct ID: Codable, Hashable, RawRepresentable, Sendable {

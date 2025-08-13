@@ -16,17 +16,13 @@ public struct Movie: Codable, Hashable, Identifiable, Sendable {
   public var popularity: Double?
   public var posterPath: PosterPath?
   public var releaseDate: String?
-  public var title: String
+  public var title = ""
   public var video: Bool?
   public var voteAverage: Double?
   public var voteCount: Int?
 
-  public init(
-    id: ID,
-    title: String
-  ) {
+  public init(id: ID) {
     self.id = id
-    self.title = title
   }
 
   public struct ID: Codable, Hashable, RawRepresentable, Sendable {

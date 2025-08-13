@@ -9,7 +9,7 @@ public struct TVShowDetails: Codable, Hashable, Identifiable, Sendable {
   public var adult = false
   public var backdropPath: BackdropPath?
   // public var createdBy: [CreatedBy]
-   public var episodeRunTime: [Int] = []
+  public var episodeRunTime: [Int] = []
   public var firstAirDate = ""
   public var genres: [Genre] = []
   public var homepage = ""
