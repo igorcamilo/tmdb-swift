@@ -1,49 +1,28 @@
+//
+//  Movie.swift
+//  TMDB
+//
+//  Created by Igor Camilo on 13.08.25.
+//
+
 public struct Movie: Codable, Hashable, Identifiable, Sendable {
-  public var adult: Bool
+  public var adult = false
   public var backdropPath: BackdropPath?
   public var genreIDs: [Genre.ID]?
   public var id: ID
-  public var originalLanguage: String
-  public var originalTitle: String
-  public var overview: String
+  public var originalLanguage = ""
+  public var originalTitle = ""
+  public var overview = ""
   public var popularity: Double?
   public var posterPath: PosterPath?
   public var releaseDate: String?
-  public var title: String
+  public var title = ""
   public var video: Bool?
   public var voteAverage: Double?
   public var voteCount: Int?
 
-  public init(
-    adult: Bool,
-    backdropPath: BackdropPath?,
-    genreIDs: [Genre.ID]?,
-    id: ID,
-    originalLanguage: String,
-    originalTitle: String,
-    overview: String,
-    popularity: Double?,
-    posterPath: PosterPath?,
-    releaseDate: String?,
-    title: String,
-    video: Bool?,
-    voteAverage: Double?,
-    voteCount: Int?
-  ) {
-    self.adult = adult
-    self.backdropPath = backdropPath
-    self.genreIDs = genreIDs
+  public init(id: ID) {
     self.id = id
-    self.originalLanguage = originalLanguage
-    self.originalTitle = originalTitle
-    self.overview = overview
-    self.popularity = popularity
-    self.posterPath = posterPath
-    self.releaseDate = releaseDate
-    self.title = title
-    self.video = video
-    self.voteAverage = voteAverage
-    self.voteCount = voteCount
   }
 
   public struct ID: Codable, Hashable, RawRepresentable, Sendable {

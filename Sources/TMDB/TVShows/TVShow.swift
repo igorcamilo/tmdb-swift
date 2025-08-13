@@ -1,49 +1,28 @@
-public struct TVShow: Codable, Hashable, Identifiable, Sendable {
-  public var adult: Bool
-  public var backdropPath: BackdropPath?
-  public var genreIDs: [Genre.ID]
-  public var id: ID
-  public var originCountry: [String]
-  public var originalLanguage: String
-  public var originalName: String
-  public var overview: String
-  public var popularity: Double
-  public var posterPath: PosterPath?
-  public var firstAirDate: String
-  public var name: String
-  public var voteAverage: Double
-  public var voteCount: Int
+//
+//  TVShow.swift
+//  TMDB
+//
+//  Created by Igor Camilo on 13.08.25.
+//
 
-  public init(
-    adult: Bool,
-    backdropPath: BackdropPath?,
-    genreIDs: [Genre.ID],
-    id: ID,
-    originCountry: [String],
-    originalLanguage: String,
-    originalName: String,
-    overview: String,
-    popularity: Double,
-    posterPath: PosterPath?,
-    firstAirDate: String,
-    name: String,
-    voteAverage: Double,
-    voteCount: Int
-  ) {
-    self.adult = adult
-    self.backdropPath = backdropPath
-    self.genreIDs = genreIDs
+public struct TVShow: Codable, Hashable, Identifiable, Sendable {
+  public var adult = false
+  public var backdropPath: BackdropPath?
+  public var genreIDs: [Genre.ID] = []
+  public var id: ID
+  public var originCountry: [String] = []
+  public var originalLanguage = ""
+  public var originalName = ""
+  public var overview = ""
+  public var popularity = 0.0
+  public var posterPath: PosterPath?
+  public var firstAirDate = ""
+  public var name = ""
+  public var voteAverage = 0.0
+  public var voteCount = 0
+
+  public init(id: ID) {
     self.id = id
-    self.originCountry = originCountry
-    self.originalLanguage = originalLanguage
-    self.originalName = originalName
-    self.overview = overview
-    self.popularity = popularity
-    self.posterPath = posterPath
-    self.firstAirDate = firstAirDate
-    self.name = name
-    self.voteAverage = voteAverage
-    self.voteCount = voteCount
   }
 
   public struct ID: Codable, Hashable, RawRepresentable, Sendable {

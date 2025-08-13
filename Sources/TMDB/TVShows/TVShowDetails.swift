@@ -1,12 +1,19 @@
+//
+//  TVShowDetails.swift
+//  TMDB
+//
+//  Created by Igor Camilo on 13.08.25.
+//
+
 public struct TVShowDetails: Codable, Hashable, Identifiable, Sendable {
   public var adult = false
   public var backdropPath: BackdropPath?
   // public var createdBy: [CreatedBy]
-  // public var episodeRunTime: [Int]
+  public var episodeRunTime: [Int] = []
   public var firstAirDate = ""
   public var genres: [Genre] = []
   public var homepage = ""
-  public var id: TVShow.ID = 0
+  public var id: TVShow.ID
   public var inProduction = false
   public var languages: [String] = []
   public var lastAirDate: String?
@@ -34,15 +41,15 @@ public struct TVShowDetails: Codable, Hashable, Identifiable, Sendable {
   public var keywords: Keywords?
   public var similar: Page<TVShow>?
 
-  public init() {
-    // Makes initializer public
+  public init(id: TVShow.ID) {
+    self.id = id
   }
 
   public struct Keywords: Codable, Hashable, Sendable {
-    public var results: [Keyword] = []
+    public var results: [Keyword]
 
-    public init() {
-      // Makes initializer public
+    public init(results: [Keyword] = []) {
+      self.results = results
     }
   }
 

@@ -1,26 +1,26 @@
 //
-//  MovieCollection.swift
+//  ProductionCompany.swift
 //  TMDB
 //
 //  Created by Igor Camilo on 13.08.25.
 //
 
-public struct MovieCollection: Codable, Hashable, Identifiable, Sendable {
+public struct ProductionCompany: Codable, Hashable, Identifiable, Sendable {
   public var id: ID
+  public var logoPath: LogoPath?
   public var name: String
-  public var posterPath: PosterPath?
-  public var backdropPath: BackdropPath?
+  public var originCountry: String?
 
   public init(
     id: ID,
+    logoPath: LogoPath? = nil,
     name: String,
-    posterPath: PosterPath? = nil,
-    backdropPath: BackdropPath? = nil
+    originCountry: String? = nil
   ) {
     self.id = id
+    self.logoPath = logoPath
     self.name = name
-    self.posterPath = posterPath
-    self.backdropPath = backdropPath
+    self.originCountry = originCountry
   }
 
   public struct ID: Codable, Hashable, RawRepresentable, Sendable {
@@ -33,14 +33,14 @@ public struct MovieCollection: Codable, Hashable, Identifiable, Sendable {
 
   private enum CodingKeys: String, CodingKey {
     case id
+    case logoPath = "logo_path"
     case name
-    case posterPath = "poster_path"
-    case backdropPath = "backdrop_path"
+    case originCountry = "origin_country"
   }
 }
 
-extension MovieCollection.ID: ExpressibleByIntegerLiteral {
+extension ProductionCompany.ID: ExpressibleByIntegerLiteral {
   public init(integerLiteral value: Int) {
-    self.rawValue = value
+    self.init(rawValue: value)
   }
 }
