@@ -1,11 +1,26 @@
-public struct ProductionCompany: Codable, Hashable, Identifiable, Sendable {
-  public var id: ID = 0
-  public var logoPath: String?
-  public var name = ""
-  public var originCountry = ""
+//
+//  ProductionCompany.swift
+//  TMDB
+//
+//  Created by Igor Camilo on 13.08.25.
+//
 
-  public init() {
-    // Makes initializer public
+public struct ProductionCompany: Codable, Hashable, Identifiable, Sendable {
+  public var id: ID
+  public var logoPath: LogoPath?
+  public var name: String
+  public var originCountry: String?
+
+  public init(
+    id: ID,
+    logoPath: LogoPath? = nil,
+    name: String,
+    originCountry: String? = nil
+  ) {
+    self.id = id
+    self.logoPath = logoPath
+    self.name = name
+    self.originCountry = originCountry
   }
 
   public struct ID: Codable, Hashable, RawRepresentable, Sendable {

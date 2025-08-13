@@ -1,3 +1,10 @@
+//
+//  TVShowList.swift
+//  TMDB
+//
+//  Created by Igor Camilo on 13.08.25.
+//
+
 public enum TVShowList: Codable, Hashable, Sendable {
   /// TV shows airing today.
   case airingToday
@@ -10,7 +17,7 @@ public enum TVShowList: Codable, Hashable, Sendable {
   /// Similar TV shows based on genres and keywords.
   case similar(TVShow.ID)
   /// Trending TV shows on TMDB.
-  case trending(TrendingTimeWindow)
+  case trending(TimeWindow)
 
   var relativePath: String {
     switch self {

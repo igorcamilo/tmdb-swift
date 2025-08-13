@@ -1,27 +1,34 @@
+//
+//  MovieClient.swift
+//  TMDB
+//
+//  Created by Igor Camilo on 13.08.25.
+//
+
 import Dependencies
 import DependenciesMacros
 import Foundation
 
 @DependencyClient struct MovieClient {
-  var movieDetails:
+  var details:
     @Sendable (
       _ id: Movie.ID,
-      _ appending: [MovieDetailsAppendingOptions],
+      _ appending: [MovieAppendOptions],
       _ locale: Locale?,
-      _ accessToken: String
+      _ accessToken: AccessToken
     ) async throws -> MovieDetails
 
   var movies:
     @Sendable (
       _ list: MovieList,
       _ locale: Locale?,
-      _ accessToken: String
+      _ accessToken: AccessToken
     ) async throws -> Page<Movie>
 }
 
 extension MovieClient: DependencyKey {
   static let liveValue = MovieClient(
-    movieDetails: { id, appending, locale, accessToken in
+    details: { id, appending, locale, accessToken in
       var queryItems: [URLQueryItem] = []
       if !appending.isEmpty {
         let value = appending.map(\.rawValue).joined(separator: ",")

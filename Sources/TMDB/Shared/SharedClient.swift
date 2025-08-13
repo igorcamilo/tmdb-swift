@@ -1,3 +1,10 @@
+//
+//  SharedClient.swift
+//  TMDB
+//
+//  Created by Igor Camilo on 13.08.25.
+//
+
 import Dependencies
 import DependenciesMacros
 import Foundation
@@ -15,11 +22,11 @@ private let decoder = JSONDecoder()
     relativePath: String,
     queryItems: [URLQueryItem]?,
     locale: Locale?,
-    accessToken: String
+    accessToken: AccessToken
   ) async throws -> T where T: Decodable {
     let baseURLString = "https://api.themoviedb.org/3/"
     guard var components = URLComponents(string: baseURLString) else {
-      throw TMDBClientError.invalidBaseURLString(baseURLString)
+      throw ClientError.invalidBaseURLString(baseURLString)
     }
     components.path.append(relativePath)
     components.queryItems = queryItems
@@ -29,18 +36,18 @@ private let decoder = JSONDecoder()
       )
     }
     guard let url = components.url else {
-      throw TMDBClientError.invalidURLComponents(components)
+      throw ClientError.invalidURLComponents(components)
     }
     var urlRequest = URLRequest(url: url)
     urlRequest.allHTTPHeaderFields = [
       "Accept": "application/json",
-      "Authorization": "Bearer \(accessToken)",
+      "Authorization": "Bearer \(accessToken.rawValue)",
     ]
     let (data, response) = try await fetch(urlRequest)
     if (response as? HTTPURLResponse)?.statusCode == 200 {
       return try decoder.decode(T.self, from: data)
     } else {
-      throw try decoder.decode(TMDBError.self, from: data)
+      throw try decoder.decode(APIError.self, from: data)
     }
   }
 }

@@ -1,3 +1,10 @@
+//
+//  MovieList.swift
+//  TMDB
+//
+//  Created by Igor Camilo on 13.08.25.
+//
+
 public enum MovieList: Codable, Hashable, Sendable {
   /// Movies that are currently in theatres.
   case nowPlaying
@@ -10,7 +17,7 @@ public enum MovieList: Codable, Hashable, Sendable {
   /// Similar movies based on genres and keywords.
   case similar(Movie.ID)
   /// Trending movies on TMDB.
-  case trending(TrendingTimeWindow)
+  case trending(TimeWindow)
 
   var relativePath: String {
     switch self {

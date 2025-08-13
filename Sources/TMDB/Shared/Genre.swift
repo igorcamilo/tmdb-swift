@@ -1,9 +1,20 @@
-public struct Genre: Codable, Hashable, Identifiable, Sendable {
-  public var id: ID = 0
-  public var name = ""
+//
+//  Genre.swift
+//  TMDB
+//
+//  Created by Igor Camilo on 13.08.25.
+//
 
-  public init() {
-    // Makes initializer public
+public struct Genre: Codable, Hashable, Identifiable, Sendable {
+  public var id: ID
+  public var name: String
+
+  public init(
+    id: ID,
+    name: String
+  ) {
+    self.id = id
+    self.name = name
   }
 
   public struct ID: Codable, Hashable, RawRepresentable, Sendable {

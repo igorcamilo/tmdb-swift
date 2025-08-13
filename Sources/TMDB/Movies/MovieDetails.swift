@@ -1,3 +1,10 @@
+//
+//  MovieDetails.swift
+//  TMDB
+//
+//  Created by Igor Camilo on 13.08.25.
+//
+
 public struct MovieDetails: Codable, Hashable, Identifiable, Sendable {
   public var adult = false
   public var backdropPath: BackdropPath?
@@ -5,7 +12,7 @@ public struct MovieDetails: Codable, Hashable, Identifiable, Sendable {
   public var budget = 0
   public var genres: [Genre] = []
   public var homepage: String?
-  public var id: Movie.ID = 0
+  public var id: Movie.ID
   public var imdbID: String?
   public var originCountry: [String]?
   public var originalLanguage = ""
@@ -28,15 +35,15 @@ public struct MovieDetails: Codable, Hashable, Identifiable, Sendable {
   public var keywords: Keywords?
   public var similar: Page<Movie>?
 
-  public init() {
-    // Makes initializer public
+  public init(id: Movie.ID) {
+    self.id = id
   }
 
   public struct Keywords: Codable, Hashable, Sendable {
-    public var keywords: [Keyword] = []
+    public var keywords: [Keyword]
 
-    public init() {
-      // Makes initializer public
+    public init(keywords: [Keyword] = []) {
+      self.keywords = keywords
     }
   }
 

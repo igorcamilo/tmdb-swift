@@ -1,4 +1,11 @@
-public struct TMDBError: Codable, Error, Hashable, Sendable {
+//
+//  APIError.swift
+//  TMDB
+//
+//  Created by Igor Camilo on 13.08.25.
+//
+
+public struct APIError: Codable, Error, Hashable, Sendable {
   public var statusCode: Int
   public var statusMessage: String
   public var success: Bool

@@ -1,11 +1,26 @@
+//
+//  MovieCollection.swift
+//  TMDB
+//
+//  Created by Igor Camilo on 13.08.25.
+//
+
 public struct MovieCollection: Codable, Hashable, Identifiable, Sendable {
-  public var id: ID = 0
-  public var name = ""
+  public var id: ID
+  public var name: String
   public var posterPath: PosterPath?
   public var backdropPath: BackdropPath?
 
-  public init() {
-    // Makes initializer public
+  public init(
+    id: ID,
+    name: String,
+    posterPath: PosterPath? = nil,
+    backdropPath: BackdropPath? = nil
+  ) {
+    self.id = id
+    self.name = name
+    self.posterPath = posterPath
+    self.backdropPath = backdropPath
   }
 
   public struct ID: Codable, Hashable, RawRepresentable, Sendable {

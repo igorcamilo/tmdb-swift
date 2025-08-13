@@ -1,3 +1,10 @@
+//
+//  Page.swift
+//  TMDB
+//
+//  Created by Igor Camilo on 13.08.25.
+//
+
 public struct Page<T: Codable & Hashable & Sendable>: Codable, Hashable, Sendable {
   public var page: Int
   public var results: [T]
